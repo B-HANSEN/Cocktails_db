@@ -3,7 +3,9 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 
-Vue.config.productionTip = false
+import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+
+
 
 new Vue({
   router,

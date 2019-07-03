@@ -1,38 +1,50 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
+    <app-header></app-header>
     <v-content>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Header from "./components/Header2.vue";
 
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld
+    "app-header": Header
   },
-  data () {
+  data() {
     return {
-      //
-    }
+      json: []
+    };
+  },
+  created: function() {
+    fetch("https://api.myjson.com/bins/1h3vb3")
+      .then(r => r.json())
+      .then(json => {
+        console.log(json.books);
+        this.json = json.books;
+      });
   }
-}
+  // created: function() {
+  //   unirest
+  //     .get("https://the-cocktail-db.p.rapidapi.com/lookup.php?i=11007")
+  //     .header("X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com")
+  //     .header(
+  //       "X-RapidAPI-Key",
+  //       "21867e0886mshb58d2ae53ca4c8fp172fc8jsn28d7853596c8"
+  //     )
+  //     .end(function(result) {
+  //       console.log(result.status, result.headers, result.body);
+  //     });
+  // }
+};
 </script>
+
+<style>
+body {
+  font-family: "Nunito SemiBold";
+}
+</style>
