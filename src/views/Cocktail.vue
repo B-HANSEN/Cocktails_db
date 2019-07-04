@@ -35,6 +35,9 @@
     <template>
   <div>
     <h1>OLD HOME VIEW</h1>
+    <v-btn color="orange darken-2" dark @click="$router.go(-1)">
+      <v-icon dark left>arrow_back</v-icon>Go Back
+    </v-btn>
     <input
       type="text"
       class="searchfield"

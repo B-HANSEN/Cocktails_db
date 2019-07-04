@@ -1,27 +1,28 @@
 <template>
   <v-flex column>
-    <button @click="$router.go(-1)">GO BACK</button>
-    <v-layout row>
-      <img src="../assets/jim_beam.jpeg" width="100px" alt="profile-pic" />
+    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
+      <v-icon dark left>arrow_left</v-icon>Back
+    </v-btn>-->
 
-      <v-layout column justify-space-around>
-        <h2>Name: Jim Beam</h2>
-        <p>
-          Personal profile description comes here,
-          <br />ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.......
+    <v-layout row>
+      <img src="../assets/jim_beam.jpeg" width="140px" class="pa-2" alt="profile-pic" />
+      <v-layout column justify-space-between class="pa-2">
+        <h2>PROFILE: Jim Beam</h2>
+        <p class="font-weight-light font-italic">
+          Personal profile description comes here:
+          <br />
+          <br />ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco......
         </p>
       </v-layout>
     </v-layout>
 
-    <v-layout justify-center>
-      <v-flex>
+    <v-layout>
+      <v-flex justify-center class="pa-2">
         <v-tabs v-model="active" color="cyan" dark slider-color="yellow">
-          <!-- <v-tab v-for="n in 4" :key="n" ripple>Item {{ n }}</v-tab> -->
           <v-tab ripple>My Favourites</v-tab>
-          <v-tab ripple>My Reviews</v-tab>
           <v-tab ripple>My Chats</v-tab>
           <v-tab ripple>My Contacts</v-tab>
-          <v-tab-item v-for="n in 4" :key="n">
+          <v-tab-item v-for="n in 3" :key="n">
             <v-card flat>
               <v-card-text>{{ text }}</v-card-text>
             </v-card>

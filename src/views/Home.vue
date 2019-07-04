@@ -1,7 +1,9 @@
 <template>
   <div>
-    <button @click="$router.go(-1)">GO BACK</button>
-    <h1>HOME VIEW</h1>
+    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
+      <v-icon dark left>arrow_left</v-icon>Back
+    </v-btn>-->
+
     <input
       type="text"
       class="searchfield"
@@ -9,20 +11,20 @@
       placeholder="Search by Name or Ingredient..."
     />
     <v-container>
-      <v-layout row justify-center v-for="(cocktail,i) in cocktails" :key="i">
+      <v-layout class="pb-2" row justify-center v-for="(cocktail,i) in cocktails" :key="i">
         <!-- photo container -->
-        <v-card class="pa-3">
-          <v-layout column>
-            <v-flex xs6 md6>
+        <v-card>
+          <v-layout pa-3>
+            <v-flex>
               <v-img :src="cocktail.src" width="180px"></v-img>
             </v-flex>
           </v-layout>
         </v-card>
 
         <!-- general info container -->
-        <v-card class="pa-3">
-          <v-layout column>
-            <v-flex xs6 md6>
+        <v-card>
+          <v-layout column pa-3>
+            <v-flex>
               <h2>{{ cocktail.title }}</h2>
               <p class="line black--text" v-text="cocktail.key1"></p>
               <p class="line black--text" v-text="cocktail.key2"></p>

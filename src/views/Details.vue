@@ -1,13 +1,15 @@
 <template>
   <div>
-    <button @click="$router.go(-1)">GO BACK</button>
+    <!-- <v-btn round raised small color="orange darken-2" dark @click="$router.go(-1)">
+      <v-icon dark left>arrow_left</v-icon>Back
+    </v-btn>-->
 
     <v-container>
-      <v-layout row justify-center>
+      <v-layout row justify-center pb-2>
         <!-- photo container -->
-        <v-card class="pa-3">
-          <v-layout column>
-            <v-flex xs6 md6>
+        <v-card>
+          <v-layout column pa-3>
+            <v-flex>
               <v-img :src="cocktail.src" width="180px"></v-img>
             </v-flex>
           </v-layout>
@@ -15,28 +17,32 @@
 
         <!-- general info container -->
         <v-layout column>
-          <v-card class="pa-3">
-            <v-layout column>
-              <v-flex xs6 md6>
-                <h2>{{ cocktail.title }}</h2>
+          <v-card>
+            <v-layout column pa-3>
+              <v-flex>
+                <h2>
+                  {{ cocktail.title }}
+                  <v-btn flat icon color="deep-orange">
+                    <v-icon>thumb_up</v-icon>
+                  </v-btn>
+                </h2>
                 <p class="line black--text" v-text="cocktail.key1"></p>
                 <p class="line black--text" v-text="cocktail.key2"></p>
                 <p class="line black--text" v-text="cocktail.key3"></p>
               </v-flex>
             </v-layout>
           </v-card>
-
-          <!-- detail info container -->
-          <v-card class="pa-3">
-            <v-layout column>
-              <v-flex xs6 md6>
-                <p class="line black--text" v-text="cocktail.key4"></p>
-                <p class="line black--text" v-text="cocktail.key5"></p>
-              </v-flex>
-            </v-layout>
-          </v-card>
         </v-layout>
       </v-layout>
+      <!-- detail info container -->
+      <v-card class="pa-3">
+        <v-layout column>
+          <v-flex>
+            <p class="line black--text" v-text="cocktail.key4"></p>
+            <p class="line black--text" v-text="cocktail.key5"></p>
+          </v-flex>
+        </v-layout>
+      </v-card>
     </v-container>
   </div>
 </template>

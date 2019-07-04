@@ -1,12 +1,14 @@
 <template>
   <div>
-    <button @click="$router.go(-1)">GO BACK</button>
+    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
+      <v-icon dark left>arrow_left</v-icon>Back
+    </v-btn>-->
 
-    <h1>CHATROOM VIEW</h1>
+    <h1 class="pa-2">CHATROOM VIEW</h1>
 
     <v-card class="mx-auto" color="#26c6da" dark max-width="400">
       <v-card-title>
-        <span class="title font-weight-light">Chat between Mike and you</span>
+        <span class="title font-weight-light">Chat between Brad and myself</span>
       </v-card-title>
 
       <v-layout align-center justify-start>
@@ -20,7 +22,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>User Mike</v-list-tile-title>
+              <v-list-tile-title>User Brad Peppard</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-card-actions>
@@ -39,7 +41,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>You</v-list-tile-title>
+              <v-list-tile-title>Me</v-list-tile-title>
             </v-list-tile-content>
 
             <!-- <v-layout align-center justify-end>
