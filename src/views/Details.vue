@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <router-link
-      v-if="$routerHistory.hasPrevious()"
-      :to="{ path: $routerHistory.previous().path }"
-    >GO BACK</router-link>-->
+    <button @click="$router.go(-1)">GO BACK</button>
 
     <v-container>
       <v-layout row justify-center>
@@ -46,6 +43,7 @@
 
 
 <script>
+import { log } from "util";
 export default {
   data() {
     return {
@@ -62,6 +60,8 @@ export default {
     };
   },
   created() {
+    console.log(this.$routerHistory.previous());
+
     // this.$http
     //   .get("https://api.myjson.com/bins/1h3vb3/" + this.id)
     //   .then(function(data) {

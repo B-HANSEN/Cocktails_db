@@ -1,14 +1,14 @@
 <template>
-  <h1>LOGIN VIEW</h1>
+  <div>
+    <button @click="$router.go(-1)">GO BACK</button>
+
+    <h1>LOGIN VIEW</h1>
+  </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  }
-};
 </script>
 
 
-<style></style>
+<style>
+</style>

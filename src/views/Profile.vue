@@ -1,11 +1,15 @@
 <template>
   <v-flex column>
+    <button @click="$router.go(-1)">GO BACK</button>
     <v-layout row>
       <img src="../assets/jim_beam.jpeg" width="100px" alt="profile-pic" />
 
       <v-layout column justify-space-around>
         <h2>Name: Jim Beam</h2>
-        <p>Personal profile description comes here.......</p>
+        <p>
+          Personal profile description comes here,
+          <br />ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.......
+        </p>
       </v-layout>
     </v-layout>
 

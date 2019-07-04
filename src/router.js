@@ -2,17 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueRouterBackButton from 'vue-router-back-button'
 
+
 Vue.use(VueRouter);
-Vue.use(VueRouterBackButton, {
-  router,
-  ignoreRoutesWithSameName: true,
-})
 
 const router = new VueRouter({
-  routes: []
-})
-
-export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
@@ -43,3 +36,9 @@ export default new VueRouter({
 
   ]
 })
+
+Vue.use(VueRouterBackButton, {
+  router
+})
+
+export default router;

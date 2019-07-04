@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="$router.go(-1)">GO BACK</button>
     <h1>HOME VIEW</h1>
     <input
       type="text"
