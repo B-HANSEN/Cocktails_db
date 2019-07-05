@@ -1,55 +1,64 @@
 <template>
-  <div>
-    <v-container>
-      <v-layout row justify-center pb-2>
-        <!-- photo container -->
-        <v-card>
-          <v-layout column pa-3>
-            <v-flex xs4>
-              <v-img :src="cocktail.src" width="150px"></v-img>
-            </v-flex>
-          </v-layout>
-        </v-card>
-
-        <!-- general info container -->
-        <v-layout column>
-          <v-card>
-            <v-layout pa-3>
-              <v-flex>
-                <h2>{{ cocktail.title }}</h2>
-                <v-div xs6>
-                  <span class="count">{{ countA }}</span>
-                  <v-btn @click="increment" flat small icon color="grey lighten-1">
-                    <v-icon size="15px">thumb_up</v-icon>
-                  </v-btn>
-                  <span class="count">{{ countB }}</span>
-                  <v-btn @click="decrement" flat small icon color="grey lighten-1">
-                    <v-icon size="15px">thumb_down</v-icon>
-                  </v-btn>
-                  <v-btn flat small icon color="grey lighten-1">
-                    <v-icon size="15px">share</v-icon>
-                  </v-btn>
-                </v-div>
-
-                <p class="line black--text" v-text="cocktail.key1"></p>
-                <p class="line black--text" v-text="cocktail.key2"></p>
-                <p class="line black--text" v-text="cocktail.key3"></p>
-              </v-flex>
-            </v-layout>
-          </v-card>
-        </v-layout>
-      </v-layout>
-      <!-- detail info container -->
-      <v-card class="pa-3">
-        <v-layout column>
-          <v-flex>
-            <p class="line black--text" v-text="cocktail.key4"></p>
-            <p class="line black--text" v-text="cocktail.key5"></p>
+  <v-container>
+    <v-layout row justify-center pb-2>
+      <!-- photo container -->
+      <v-card>
+        <v-layout pa-3>
+          <v-flex xs4>
+            <v-img :src="cocktail.src" width="120px"></v-img>
           </v-flex>
         </v-layout>
       </v-card>
-    </v-container>
-  </div>
+
+      <!-- general info container -->
+      <v-layout column>
+        <v-card>
+          <v-layout column wrap pa-3>
+            <v-flex xs12 sm6>
+              <h2>{{ cocktail.title }}</h2>
+            </v-flex>
+
+            <v-layout row xs12 sm6 pb-4>
+              <v-layout column>
+                <v-btn @click="increment" flat small icon right color="grey lighten-1">
+                  <v-icon size="15px">thumb_up</v-icon>
+                </v-btn>
+                <span class="count">{{ countA }}</span>
+              </v-layout>
+
+              <v-layout column>
+                <v-btn @click="decrement" flat small icon right color="grey lighten-1">
+                  <v-icon size="15px">thumb_down</v-icon>
+                </v-btn>
+                <span class="count">{{ countB }}</span>
+              </v-layout>
+
+              <v-layout column>
+                <v-btn flat small icon right color="grey lighten-1">
+                  <v-icon size="15px">share</v-icon>
+                </v-btn>
+              </v-layout>
+            </v-layout>
+
+            <v-flex column>
+              <p class="line black--text" v-text="cocktail.key1"></p>
+              <p class="line black--text" v-text="cocktail.key2"></p>
+              <p class="line black--text" v-text="cocktail.key3"></p>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-layout>
+    <!-- detail info container -->
+    <v-card class="pa-3">
+      <v-layout column>
+        <v-flex>
+          <p class="line black--text" v-text="cocktail.key4"></p>
+          <p class="line black--text" v-text="cocktail.key5"></p>
+        </v-flex>
+      </v-layout>
+    </v-card>
+  </v-container>
 </template>
 
 
@@ -99,6 +108,6 @@ export default {
 }
 
 .count {
-  font-size: 12px;
+  font-size: 10px;
 }
 </style>
