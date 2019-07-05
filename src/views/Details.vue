@@ -5,8 +5,8 @@
         <!-- photo container -->
         <v-card>
           <v-layout column pa-3>
-            <v-flex>
-              <v-img :src="cocktail.src" width="180px"></v-img>
+            <v-flex xs4>
+              <v-img :src="cocktail.src" width="150px"></v-img>
             </v-flex>
           </v-layout>
         </v-card>
@@ -14,22 +14,23 @@
         <!-- general info container -->
         <v-layout column>
           <v-card>
-            <v-layout column pa-3>
+            <v-layout pa-3>
               <v-flex>
-                <h2>
-                  {{ cocktail.title }}
-                  <v-div>
-                    <v-btn flat small icon color="grey lighten-1">
-                      <v-icon>thumb_up</v-icon>
-                    </v-btn>
-                    <v-btn flat small icon color="grey lighten-1">
-                      <v-icon>thumb_down</v-icon>
-                    </v-btn>
-                    <v-btn flat small icon color="grey lighten-1">
-                      <v-icon>share</v-icon>
-                    </v-btn>
-                  </v-div>
-                </h2>
+                <h2>{{ cocktail.title }}</h2>
+                <v-div xs6>
+                  <span class="count">{{ countA }}</span>
+                  <v-btn @click="increment" flat small icon color="grey lighten-1">
+                    <v-icon size="15px">thumb_up</v-icon>
+                  </v-btn>
+                  <span class="count">{{ countB }}</span>
+                  <v-btn @click="decrement" flat small icon color="grey lighten-1">
+                    <v-icon size="15px">thumb_down</v-icon>
+                  </v-btn>
+                  <v-btn flat small icon color="grey lighten-1">
+                    <v-icon size="15px">share</v-icon>
+                  </v-btn>
+                </v-div>
+
                 <p class="line black--text" v-text="cocktail.key1"></p>
                 <p class="line black--text" v-text="cocktail.key2"></p>
                 <p class="line black--text" v-text="cocktail.key3"></p>
@@ -53,7 +54,6 @@
 
 
 <script>
-// import { log } from "util";
 export default {
   data() {
     return {
@@ -65,8 +65,10 @@ export default {
         key3: "Glass: Cocktail Glass",
         key4: "Ingredients: abc",
         key5: "Instructions: xyz",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
-      }
+        src: "images/cocktail1.jpeg"
+      },
+      countA: 0,
+      countB: 0
     };
   },
   created() {
@@ -76,6 +78,14 @@ export default {
     //   .then(function(data) {
     //     this.cocktail = data.body;
     //   });
+  },
+  methods: {
+    increment() {
+      this.countA++;
+    },
+    decrement() {
+      this.countB++;
+    }
   }
 };
 </script>
@@ -86,5 +96,9 @@ export default {
   width: 300px;
   padding: 10px;
   margin: 10px;
+}
+
+.count {
+  font-size: 12px;
 }
 </style>

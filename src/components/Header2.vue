@@ -16,6 +16,10 @@
       </template>
 
       <v-list two-line>
+        <v-layout justify-center class="bg">
+          <h2>NAVIGATION</h2>
+        </v-layout>
+        <v-divider></v-divider>
         <template v-for="(link, index) in links">
           <v-list-tile :key="index" ripple :to="link.to">
             <v-list-tile-action>
@@ -36,10 +40,10 @@
 export default {
   data: () => ({
     links: [
-      { icon: "home", name: "home", to: "/" },
-      { icon: "fingerprint", name: "login", to: "/login" },
-      { icon: "face", name: "profile", to: "/profile" },
-      { icon: "question_answer", name: "chatroom", to: "/chatroom" }
+      { icon: "home", name: "HOME", to: "/" },
+      { icon: "fingerprint", name: "LOGIN", to: "/login" },
+      { icon: "face", name: "PROFILE", to: "/profile" },
+      { icon: "question_answer", name: "CHATROOM", to: "/chatroom" }
     ],
     drawer: false
   }),
@@ -55,5 +59,8 @@ export default {
 <style scoped>
 .logo {
   width: 200px;
+}
+.bg {
+  background-color: lightgrey;
 }
 </style>
