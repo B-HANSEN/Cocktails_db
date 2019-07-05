@@ -1,14 +1,10 @@
 <template>
   <v-flex column>
-    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
-      <v-icon dark left>arrow_left</v-icon>Back
-    </v-btn>-->
-
     <v-layout row>
       <img src="../assets/jim_beam.jpeg" width="140px" class="pa-2" alt="profile-pic" />
       <v-layout column justify-space-between class="pa-2">
         <h2>PROFILE: Jim Beam</h2>
-        <p class="font-weight-light font-italic">
+        <p class="font-weight-light font-italic pr-1">
           Personal profile description comes here:
           <br />
           <br />ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco......

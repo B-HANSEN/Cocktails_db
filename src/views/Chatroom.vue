@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
-      <v-icon dark left>arrow_left</v-icon>Back
-    </v-btn>-->
-
     <h1 class="pa-2">CHATROOM VIEW</h1>
 
     <v-card class="mx-auto" color="#26c6da" dark max-width="400">
@@ -11,7 +7,7 @@
         <span class="title font-weight-light">Chat between Brad and myself</span>
       </v-card-title>
 
-      <v-layout align-center justify-start>
+      <v-layout align-center justify-start fill-height>
         <v-card-actions>
           <v-list-tile class="grow">
             <v-list-tile-avatar color="grey darken-3">

@@ -15,15 +15,18 @@
         </v-btn>
       </template>
 
-      <v-list>
-        <v-list-tile v-for="(link, index) in links" :key="index" :to="link.to">
-          <v-list-tile-action>
-            <v-icon>{{ link.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ link.name }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+      <v-list two-line>
+        <template v-for="(link, index) in links">
+          <v-list-tile :key="index" ripple :to="link.to">
+            <v-list-tile-action>
+              <v-icon>{{ link.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ link.name }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider v-if="index + 1 < links.length" :key="`divider-${index}`"></v-divider>
+        </template>
       </v-list>
     </v-menu>
   </v-toolbar>

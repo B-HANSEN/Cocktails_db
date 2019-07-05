@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <v-btn round raised small color="orange darken-2" dark @click="$router.go(-1)">
-      <v-icon dark left>arrow_left</v-icon>Back
-    </v-btn>-->
-
     <v-container>
       <v-layout row justify-center pb-2>
         <!-- photo container -->
@@ -22,9 +18,17 @@
               <v-flex>
                 <h2>
                   {{ cocktail.title }}
-                  <v-btn flat icon color="deep-orange">
-                    <v-icon>thumb_up</v-icon>
-                  </v-btn>
+                  <v-div>
+                    <v-btn flat small icon color="grey lighten-1">
+                      <v-icon>thumb_up</v-icon>
+                    </v-btn>
+                    <v-btn flat small icon color="grey lighten-1">
+                      <v-icon>thumb_down</v-icon>
+                    </v-btn>
+                    <v-btn flat small icon color="grey lighten-1">
+                      <v-icon>share</v-icon>
+                    </v-btn>
+                  </v-div>
                 </h2>
                 <p class="line black--text" v-text="cocktail.key1"></p>
                 <p class="line black--text" v-text="cocktail.key2"></p>
@@ -49,7 +53,7 @@
 
 
 <script>
-import { log } from "util";
+// import { log } from "util";
 export default {
   data() {
     return {
@@ -66,8 +70,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$routerHistory.previous());
-
+    // console.log(this.$routerHistory.previous());
     // this.$http
     //   .get("https://api.myjson.com/bins/1h3vb3/" + this.id)
     //   .then(function(data) {

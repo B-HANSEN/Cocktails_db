@@ -1,20 +1,17 @@
 <template>
   <div>
-    <!-- <v-btn round small color="orange darken-2" dark @click="$router.go(-1)">
-      <v-icon dark left>arrow_left</v-icon>Back
-    </v-btn>-->
-
     <input
       type="text"
       class="searchfield"
       v-model="search"
       placeholder="Search by Name or Ingredient..."
     />
+    <p>add arrow up functionality</p>
     <v-container>
-      <v-layout class="pb-2" row justify-center v-for="(cocktail,i) in cocktails" :key="i">
+      <v-layout class="pb-2 justify-center" v-for="(cocktail,i) in cocktails" :key="i">
         <!-- photo container -->
-        <v-card>
-          <v-layout pa-3>
+        <v-card class="action">
+          <v-layout class="pa-3">
             <v-flex>
               <v-img :src="cocktail.src" width="180px"></v-img>
             </v-flex>
@@ -50,7 +47,7 @@ export default {
           key1: "Category: alcoholic",
           key2: "Group: Contemporary Classic",
           key3: "Glass: Cocktail Glass",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          src: "images/cocktail1.jpeg",
           id: 1
         },
         {
@@ -58,7 +55,7 @@ export default {
           key1: "Category: alcoholic",
           key2: "Group: Contemporary Classic",
           key3: "Glass: Cocktail Glass",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          src: "images/cocktail2.jpeg",
           id: 2
         },
         {
@@ -66,7 +63,7 @@ export default {
           key1: "Category: alcoholic",
           key2: "Group: Contemporary Classic",
           key3: "Glass: Cocktail Glass",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          src: "images/cocktail_flame.jpeg",
           id: 3
         },
         {
@@ -74,7 +71,7 @@ export default {
           key1: "Category: alcoholic",
           key2: "Group: Contemporary Classic",
           key3: "Glass: Cocktail Glass",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          src: "images/cocktail3.jpeg",
           id: 4
         }
       ],
@@ -90,5 +87,11 @@ export default {
   width: 300px;
   padding: 10px;
   margin: 10px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
