@@ -74,7 +74,7 @@ export default {
         key3: "Glass: Cocktail Glass",
         key4: "Ingredients: abc",
         key5: "Instructions: xyz",
-        src: "images/cocktail1.jpeg"
+        src: "../../public/images/cocktail1.jpeg"
       },
       countA: 0,
       countB: 0
