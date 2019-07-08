@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container :cocktails="json">
     <v-layout row justify-center pb-2>
       <!-- photo container -->
       <v-card>
         <v-layout pa-3>
           <v-flex xs4>
-            <v-img :src="cocktail.src" width="120px"></v-img>
+            <v-img :src="cocktails.src" width="120px"></v-img>
           </v-flex>
         </v-layout>
       </v-card>
@@ -15,10 +15,10 @@
         <v-card>
           <v-layout column wrap pa-3>
             <v-flex xs12 sm6>
-              <h2>{{ cocktail.title }}</h2>
+              <h2>{{ cocktails.title }}</h2>
             </v-flex>
 
-            <v-layout row justify-start xs12 sm6 pb-4>
+            <v-layout row justify-end xs12 sm6 pb-4>
               <v-layout column>
                 <v-btn @click="increment" flat small icon right color="grey lighten-1">
                   <v-icon size="25px">thumb_up</v-icon>
@@ -35,9 +35,9 @@
             </v-layout>
 
             <v-flex column>
-              <p class="line black--text" v-text="cocktail.key1"></p>
-              <p class="line black--text" v-text="cocktail.key2"></p>
-              <p class="line black--text" v-text="cocktail.key3"></p>
+              <p class="line black--text" v-text="cocktails.key1"></p>
+              <p class="line black--text" v-text="cocktails.key2"></p>
+              <p class="line black--text" v-text="cocktails.key3"></p>
             </v-flex>
           </v-layout>
         </v-card>
@@ -47,8 +47,8 @@
     <v-card class="pa-3">
       <v-layout column>
         <v-flex>
-          <p class="line black--text" v-text="cocktail.key4"></p>
-          <p class="line black--text" v-text="cocktail.key5"></p>
+          <p class="line black--text" v-text="cocktails.key4"></p>
+          <p class="line black--text" v-text="cocktails.key5"></p>
         </v-flex>
       </v-layout>
     </v-card>
@@ -61,18 +61,27 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      cocktail: {
-        title: "First Cocktail",
-        key1: "Category: alcoholic",
-        key2: "Group: Contemporary Classic",
-        key3: "Glass: Cocktail Glass",
-        key4: "Ingredients: abc",
-        key5: "Instructions: xyz",
-        src: "../images/cocktail1.jpeg"
-      },
+      cocktails: [],
+      //   title: "First Cocktail",
+      //   key1: "Category: alcoholic",
+      //   key2: "Group: Contemporary Classic",
+      //   key3: "Glass: Cocktail Glass",
+      //   key4: "Ingredients: abc",
+      //   key5: "Instructions: xyz",
+      //   src: "../images/cocktail1.jpeg"
+      // }
       countA: 0,
-      countB: 0
+      countB: 0,
+      json: []
     };
+  },
+  created: function() {
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
+      .then(r => r.json())
+      .then(json => {
+        console.log(json);
+        this.json = cocktails;
+      });
   },
   methods: {
     increment() {
@@ -100,12 +109,4 @@ export default {
 
 
 
-
-// created() {
-//       console.log(this.$routerHistory.previous());
-//     this.$http
-//       .get("https://api.myjson.com/bins/1h3vb3/" + this.id)
-//       .then(function(data) {
-//         this.cocktail = data.body;
-//       });
-//    }
+// check netninja #42 

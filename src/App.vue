@@ -11,7 +11,7 @@
 
 
 <script>
-import Header from "./components/Header2.vue";
+import Header from "./components/Header.vue";
 
 export default {
   name: "app",

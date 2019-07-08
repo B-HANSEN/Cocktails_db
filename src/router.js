@@ -5,7 +5,6 @@ import VueRouterBackButton from 'vue-router-back-button'
 Vue.use(VueRouter);
 
 const scrollBehavior = (to, from, savedPosition) => {
-
   if (savedPosition) {
     return savedPosition
   } else {
@@ -15,7 +14,6 @@ const scrollBehavior = (to, from, savedPosition) => {
     }
     return position
   }
-
 }
 
 const router = new VueRouter({

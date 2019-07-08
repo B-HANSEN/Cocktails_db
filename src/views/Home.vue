@@ -43,7 +43,7 @@
 
       <back-to-top bottom="0px" right="50px" visibleoffset="200px">
         <button type="button" class="btn btn-info btn-to-top">
-          <i class="fas fa-arrow-circle-up"></i>
+          <i class="fas fa-angle-double-up"></i>
         </button>
       </back-to-top>
     </div>
