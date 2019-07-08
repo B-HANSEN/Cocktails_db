@@ -60,8 +60,6 @@
 export default {
   data() {
     return {
-      id: this.$route.params.id,
-      cocktails: [],
       //   title: "First Cocktail",
       //   key1: "Category: alcoholic",
       //   key2: "Group: Contemporary Classic",
@@ -72,17 +70,31 @@ export default {
       // }
       countA: 0,
       countB: 0,
+      idDrink: this.$route.params.idDrink,
+      cocktails: {},
       json: []
     };
   },
+  // created() {
+  //   this.$http
+  //     .get(
+  //       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
+  //         this.idDrink
+  //     )
+  //     .then(function(json) {
+  //       console.log(json.drinks);
+  //       this.json = json.drinks;
+  //     });
+  // },
   created: function() {
     fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
       .then(r => r.json())
       .then(json => {
-        console.log(json);
-        this.json = cocktails;
+        console.log(json.drinks);
+        this.json = json.drinks;
       });
   },
+
   methods: {
     increment() {
       this.countA++;
@@ -96,17 +108,7 @@ export default {
 
 
 <style scoped>
-.searchfield {
-  width: 300px;
-  padding: 10px;
-  margin: 10px;
-}
-
 .count {
   font-size: 15px;
 }
 </style>
-
-
-
-// check netninja #42 

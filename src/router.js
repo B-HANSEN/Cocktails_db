@@ -26,7 +26,7 @@ const router = new VueRouter({
       component: () => import('./views/Home.vue')
     },
     {
-      path: '/cocktail/:id',
+      path: '/cocktail/:idDrink',
       name: 'Details',
       component: () => import('./views/Details.vue')
     },

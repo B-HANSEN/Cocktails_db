@@ -32,7 +32,7 @@
                 <p class="line black--text" v-text="cocktail.key1"></p>
                 <p class="line black--text" v-text="cocktail.key2"></p>
                 <p class="line black--text" v-text="cocktail.key3"></p>
-                <router-link :to="'cocktail/' + cocktail.id">
+                <router-link :to="'cocktail/' + cocktail.idDrink">
                   <v-btn color="info">How to make it</v-btn>
                 </router-link>
               </v-flex>
@@ -142,10 +142,6 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-/* .background {
-  z-index: -1;
-} */
 
 .btn-to-top {
   width: 60px;

@@ -17,20 +17,21 @@ export default {
   name: "app",
   components: {
     "app-header": Header
-  },
-  data() {
-    return {
-      json: []
-    };
-  },
-  created: function() {
-    fetch("https://api.myjson.com/bins/1h3vb3")
-      .then(r => r.json())
-      .then(json => {
-        console.log(json.books);
-        this.json = json.books;
-      });
   }
+  //   ,
+  //   data() {
+  //     return {
+  //       json: []
+  //     };
+  //   },
+  //   created: function() {
+  //     fetch("https://api.myjson.com/bins/1h3vb3")
+  //       .then(r => r.json())
+  //       .then(json => {
+  //         console.log(json.books);
+  //         this.json = json.books;
+  //       });
+  //   }
 };
 </script>
 
