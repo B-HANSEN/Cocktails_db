@@ -43,7 +43,7 @@
 
       <back-to-top bottom="0px" right="50px" visibleoffset="200px">
         <button type="button" class="btn btn-info btn-to-top">
-          <i class="fa fa-chevron-up"></i>
+          <i class="fas fa-arrow-circle-up"></i>
         </button>
       </back-to-top>
     </div>
@@ -152,8 +152,8 @@ export default {
   height: 60px;
   padding: 10px 16px;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: 45px;
   line-height: 22px;
-  color: red;
+  color: #546e7a;
 }
 </style>

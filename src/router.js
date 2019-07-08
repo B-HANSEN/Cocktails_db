@@ -2,19 +2,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueRouterBackButton from 'vue-router-back-button'
 
-
 Vue.use(VueRouter);
 
 const scrollBehavior = (to, from, savedPosition) => {
+
   if (savedPosition) {
     return savedPosition
   } else {
-    position.x = 0
-    position.y = 0
+    let position = {
+      x: 0,
+      y: 0
+    }
+    return position
   }
-  return position
-}
 
+}
 
 const router = new VueRouter({
   mode: 'history',
@@ -44,8 +46,7 @@ const router = new VueRouter({
       path: '/profile',
       name: 'Profile',
       component: () => import('./views/Profile.vue')
-    },
-
+    }
   ]
 })
 
@@ -53,4 +54,4 @@ Vue.use(VueRouterBackButton, {
   router
 })
 
-export default router;
+export default router

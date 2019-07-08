@@ -18,25 +18,19 @@
               <h2>{{ cocktail.title }}</h2>
             </v-flex>
 
-            <v-layout row xs12 sm6 pb-4>
+            <v-layout row justify-start xs12 sm6 pb-4>
               <v-layout column>
                 <v-btn @click="increment" flat small icon right color="grey lighten-1">
-                  <v-icon size="15px">thumb_up</v-icon>
+                  <v-icon size="25px">thumb_up</v-icon>
                 </v-btn>
                 <span class="count">{{ countA }}</span>
               </v-layout>
 
               <v-layout column>
                 <v-btn @click="decrement" flat small icon right color="grey lighten-1">
-                  <v-icon size="15px">thumb_down</v-icon>
+                  <v-icon size="25px">thumb_down</v-icon>
                 </v-btn>
                 <span class="count">{{ countB }}</span>
-              </v-layout>
-
-              <v-layout column>
-                <v-btn flat small icon right color="grey lighten-1">
-                  <v-icon size="15px">share</v-icon>
-                </v-btn>
               </v-layout>
             </v-layout>
 
@@ -74,19 +68,11 @@ export default {
         key3: "Glass: Cocktail Glass",
         key4: "Ingredients: abc",
         key5: "Instructions: xyz",
-        src: "../../public/images/cocktail1.jpeg"
+        src: "../images/cocktail1.jpeg"
       },
       countA: 0,
       countB: 0
     };
-  },
-  created() {
-    // console.log(this.$routerHistory.previous());
-    // this.$http
-    //   .get("https://api.myjson.com/bins/1h3vb3/" + this.id)
-    //   .then(function(data) {
-    //     this.cocktail = data.body;
-    //   });
   },
   methods: {
     increment() {
@@ -108,6 +94,18 @@ export default {
 }
 
 .count {
-  font-size: 10px;
+  font-size: 15px;
 }
 </style>
+
+
+
+
+// created() {
+//       console.log(this.$routerHistory.previous());
+//     this.$http
+//       .get("https://api.myjson.com/bins/1h3vb3/" + this.id)
+//       .then(function(data) {
+//         this.cocktail = data.body;
+//       });
+//    }

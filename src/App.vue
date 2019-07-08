@@ -3,7 +3,6 @@
     <app-header></app-header>
     <v-content>
       <keep-alive>
-        // keep from destroying child when it is not in the DOM anymore
         <router-view></router-view>
       </keep-alive>
     </v-content>
@@ -32,18 +31,6 @@ export default {
         this.json = json.books;
       });
   }
-  // created: function() {
-  //   unirest
-  //     .get("https://the-cocktail-db.p.rapidapi.com/lookup.php?i=11007")
-  //     .header("X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com")
-  //     .header(
-  //       "X-RapidAPI-Key",
-  //       "21867e0886mshb58d2ae53ca4c8fp172fc8jsn28d7853596c8"
-  //     )
-  //     .end(function(result) {
-  //       console.log(result.status, result.headers, result.body);
-  //     });
-  // }
 };
 </script>
 
