@@ -2,7 +2,10 @@
   <v-app class="grey lighten-3">
     <app-header></app-header>
     <v-content>
-      <router-view></router-view>
+      <keep-alive>
+        // keep from destroying child when it is not in the DOM anymore
+        <router-view></router-view>
+      </keep-alive>
     </v-content>
   </v-app>
 </template>
