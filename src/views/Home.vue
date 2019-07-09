@@ -19,7 +19,8 @@
           <v-card class="action">
             <v-layout class="pa-3">
               <v-flex>
-                <v-img :src="cocktail.src" width="180px"></v-img>
+                <!-- <v-img :src="cocktail.src" width="180px"></v-img> -->
+                <v-img :src="drink.src" width="180px"></v-img>
               </v-flex>
             </v-layout>
           </v-card>
@@ -28,10 +29,15 @@
           <v-card>
             <v-layout column pa-3>
               <v-flex>
-                <h2>{{ cocktail.title }}</h2>
+                <p>{{ drink.name }}</p>
+                <p>{{ drink.category }}</p>
+                <p>{{ drink.group }}</p>
+                <p>{{ drink.glass }}</p>
+
+                <!-- <h2>{{ cocktail.title }}</h2>
                 <p class="line black--text" v-text="cocktail.key1"></p>
                 <p class="line black--text" v-text="cocktail.key2"></p>
-                <p class="line black--text" v-text="cocktail.key3"></p>
+                <p class="line black--text" v-text="cocktail.key3"></p>-->
                 <router-link :to="'cocktail/' + cocktail.idDrink">
                   <v-btn color="info">How to make it</v-btn>
                 </router-link>
@@ -55,45 +61,51 @@ import BackToTop from "vue-backtotop";
 
 export default {
   data() {
-    return {
-      cocktails: [
-        {
-          title: "First Cocktail",
-          key1: "Category: alcoholic",
-          key2: "Group: Contemporary Classic",
-          key3: "Glass: Cocktail Glass",
-          src: "images/cocktail1.jpeg",
-          id: 1
-        },
-        {
-          title: "Second Cocktail",
-          key1: "Category: alcoholic",
-          key2: "Group: Contemporary Classic",
-          key3: "Glass: Cocktail Glass",
-          src: "images/cocktail2.jpeg",
-          id: 2
-        },
-        {
-          title: "Third Cocktail",
-          key1: "Category: alcoholic",
-          key2: "Group: Contemporary Classic",
-          key3: "Glass: Cocktail Glass",
-          src: "images/cocktail_flame.jpeg",
-          id: 3
-        },
-        {
-          title: "Fourth Cocktail",
-          key1: "Category: alcoholic",
-          key2: "Group: Contemporary Classic",
-          key3: "Glass: Cocktail Glass",
-          src: "images/cocktail3.jpeg",
-          id: 4
-        }
-      ],
-      search: ""
-    };
+    // return {
+    // cocktails: {
+    // [
+    //   {
+    //     title: "First Cocktail",
+    //     key1: "Category: alcoholic",
+    //     key2: "Group: Contemporary Classic",
+    //     key3: "Glass: Cocktail Glass",
+    //     src: "images/cocktail1.jpeg",
+    //     id: 1
+    //   },
+    //   {
+    //     title: "Second Cocktail",
+    //     key1: "Category: alcoholic",
+    //     key2: "Group: Contemporary Classic",
+    //     key3: "Glass: Cocktail Glass",
+    //     src: "images/cocktail2.jpeg",
+    //     id: 2
+    //   },
+    //   {
+    //     title: "Third Cocktail",
+    //     key1: "Category: alcoholic",
+    //     key2: "Group: Contemporary Classic",
+    //     key3: "Glass: Cocktail Glass",
+    //     src: "images/cocktail_flame.jpeg",
+    //     id: 3
+    //   },
+    //   {
+    //     title: "Fourth Cocktail",
+    //     key1: "Category: alcoholic",
+    //     key2: "Group: Contemporary Classic",
+    //     key3: "Glass: Cocktail Glass",
+    //     src: "images/cocktail3.jpeg",
+    //     id: 4
+    //   }
+    // ],
+    search: "";
+    // },
   },
-  components: { BackToTop }
+  components: { BackToTop },
+  computed: {
+    drinks() {
+      return this.$store.state.drinks;
+    }
+  }
 };
 </script>
 
