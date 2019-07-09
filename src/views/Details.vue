@@ -20,17 +20,21 @@
 
             <v-layout row justify-end xs12 sm6 pb-4>
               <v-layout column>
-                <v-btn @click="increment" flat small icon right color="grey lighten-1">
+                <v-btn @click="this.increment" flat small icon right color="grey lighten-1">
                   <v-icon size="25px">thumb_up</v-icon>
                 </v-btn>
-                <span class="count">{{ countA }}</span>
+                <keep-alive>
+                  <span class="count">{{ sumA }}</span>
+                </keep-alive>
               </v-layout>
 
               <v-layout column>
-                <v-btn @click="decrement" flat small icon right color="grey lighten-1">
+                <v-btn @click="this.decrement" flat small icon right color="grey lighten-1">
                   <v-icon size="25px">thumb_down</v-icon>
                 </v-btn>
-                <span class="count">{{ countB }}</span>
+                <keep-alive>
+                  <span class="count">{{ sumB }}</span>
+                </keep-alive>
               </v-layout>
             </v-layout>
 
@@ -63,18 +67,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      countA: 0,
-      countB: 0
-    };
+  data: () => {
+    return { sumA: 0, sumB: 0 };
   },
   methods: {
     increment() {
-      this.countA++;
+      this.sumA++;
     },
     decrement() {
-      this.countB++;
+      this.sumB++;
     }
   },
   computed: {

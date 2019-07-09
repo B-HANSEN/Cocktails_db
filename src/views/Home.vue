@@ -14,6 +14,7 @@
 
     <div>
       <v-container>
+        <p v-if="!filteredDrinks.length">There was no match for your search.</p>
         <v-layout
           class="pb-2 justify-center"
           v-for="(drink,idDrink) in filteredDrinks"
