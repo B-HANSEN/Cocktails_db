@@ -9,23 +9,19 @@ import {
 
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
-
-
 new Vue({
   router,
   store: store,
   render: h => h(App),
-
   created() {
     axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s`)
       .then(response => {
-        this.$store.dispatch("addCocktails", response.data)
+        this.$store.dispatch("addCocktails", response.data.drinks)
         console.log(response.data);
       })
       .catch(e => {
         console.log(e);
         this.$store.dispatch("setError", e)
-
       })
   }
 }).$mount('#app')

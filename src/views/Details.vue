@@ -1,11 +1,11 @@
 <template>
-  <v-container :cocktails="json">
+  <v-container :drinks="drinks">
     <v-layout row justify-center pb-2>
       <!-- photo container -->
       <v-card>
         <v-layout pa-3>
           <v-flex xs4>
-            <v-img :src="cocktails.src" width="120px"></v-img>
+            <v-img :src="drinks.strDrinkThumb" width="180px"></v-img>
           </v-flex>
         </v-layout>
       </v-card>
@@ -15,7 +15,7 @@
         <v-card>
           <v-layout column wrap pa-3>
             <v-flex xs12 sm6>
-              <h2>{{ cocktails.title }}</h2>
+              <h2>{{ drinks.strDrink }}</h2>
             </v-flex>
 
             <v-layout row justify-end xs12 sm6 pb-4>
@@ -35,9 +35,9 @@
             </v-layout>
 
             <v-flex column>
-              <p class="line black--text" v-text="cocktails.key1"></p>
-              <p class="line black--text" v-text="cocktails.key2"></p>
-              <p class="line black--text" v-text="cocktails.key3"></p>
+              <p>Type: {{ drinks.strAlcoholic }}</p>
+              <p>Category: {{ drinks.strCategory }}</p>
+              <p>Glass: {{ drinks.strGlass }}</p>
             </v-flex>
           </v-layout>
         </v-card>
@@ -47,8 +47,13 @@
     <v-card class="pa-3">
       <v-layout column>
         <v-flex>
-          <p class="line black--text" v-text="cocktails.key4"></p>
-          <p class="line black--text" v-text="cocktails.key5"></p>
+          <h3>Ingredients:</h3>
+          <p>- {{ drinks.strMeasure1 }} {{ drinks.strIngredient1 }}</p>
+          <p>- {{ drinks.strMeasure2 }} {{ drinks.strIngredient2 }}</p>
+          <p>- {{ drinks.strMeasure3 }} {{ drinks.strIngredient3 }}</p>
+
+          <h3>Instructions:</h3>
+          <p>{{ drinks.strInstructions }}</p>
         </v-flex>
       </v-layout>
     </v-card>
@@ -60,47 +65,21 @@
 export default {
   data() {
     return {
-      //   title: "First Cocktail",
-      //   key1: "Category: alcoholic",
-      //   key2: "Group: Contemporary Classic",
-      //   key3: "Glass: Cocktail Glass",
-      //   key4: "Ingredients: abc",
-      //   key5: "Instructions: xyz",
-      //   src: "../images/cocktail1.jpeg"
-      // }
       countA: 0,
-      countB: 0,
-      idDrink: this.$route.params.idDrink,
-      cocktails: {},
-      json: []
+      countB: 0
     };
   },
-  // created() {
-  //   this.$http
-  //     .get(
-  //       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
-  //         this.idDrink
-  //     )
-  //     .then(function(json) {
-  //       console.log(json.drinks);
-  //       this.json = json.drinks;
-  //     });
-  // },
-  created: function() {
-    fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
-      .then(r => r.json())
-      .then(json => {
-        console.log(json.drinks);
-        this.json = json.drinks;
-      });
-  },
-
   methods: {
     increment() {
       this.countA++;
     },
     decrement() {
       this.countB++;
+    }
+  },
+  computed: {
+    drinks() {
+      return this.$store.getters.getTodoById(this.$route.params.idDrink);
     }
   }
 };
@@ -110,5 +89,10 @@ export default {
 <style scoped>
 .count {
   font-size: 15px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }
 </style>

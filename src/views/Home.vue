@@ -14,11 +14,7 @@
 
     <div>
       <v-container>
-        <v-layout
-          class="pb-2 justify-center"
-          v-for="(drink,idDrink) in drinks.drinks"
-          :key="idDrink"
-        >
+        <v-layout class="pb-2 justify-center" v-for="(drink,idDrink) in drinks" :key="idDrink">
           <!-- photo container -->
           <v-card class="action">
             <v-layout class="pa-3">
@@ -32,10 +28,10 @@
           <v-card>
             <v-layout column pa-3>
               <v-flex>
-                <p>{{ drink.strDrink }}</p>
-                <p>{{ drink.strAlcoholic }}</p>
-                <p>{{ drink.strCategory }}</p>
-                <p>{{ drink.strGlass }}</p>
+                <h2>{{ drink.strDrink }}</h2>
+                <p>Type: {{ drink.strAlcoholic }}</p>
+                <p>Category: {{ drink.strCategory }}</p>
+                <p>Glass: {{ drink.strGlass }}</p>
 
                 <router-link :to="'cocktail/' + drink.idDrink">
                   <v-btn color="info">How to make it</v-btn>
@@ -57,24 +53,26 @@
 
 <script>
 import BackToTop from "vue-backtotop";
+// import { mapActions } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       search: ""
-      // cocktails: []
     };
   },
   components: { BackToTop },
   computed: {
     drinks() {
       return this.$store.state.drinks;
+    },
+    // ...mapActions(["addCocktails"]),
+    filteredDrinks: function() {
+      return this.drinks.filter(drink => {
+        return drink.strDrink.toLowerCase().includes(this.search.toLowerCase());
+      });
     }
-    // filteredDrinks: function() {
-    //   return this.drinks.filter(drink => {
-    //     return book.strDrink.toLowerCase().includes(this.search.toLowerCase());
-    //   });
-    // }
   }
 };
 </script>
