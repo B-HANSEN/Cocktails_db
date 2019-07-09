@@ -14,7 +14,11 @@
 
     <div>
       <v-container>
-        <v-layout class="pb-2 justify-center" v-for="(drink,idDrink) in drinks" :key="idDrink">
+        <v-layout
+          class="pb-2 justify-center"
+          v-for="(drink,idDrink) in filteredDrinks"
+          :key="idDrink"
+        >
           <!-- photo container -->
           <v-card class="action">
             <v-layout class="pa-3">
@@ -70,7 +74,16 @@ export default {
     // ...mapActions(["addCocktails"]),
     filteredDrinks: function() {
       return this.drinks.filter(drink => {
-        return drink.strDrink.toLowerCase().includes(this.search.toLowerCase());
+        return (
+          drink.strDrink.toLowerCase().includes(this.search.toLowerCase()) ||
+          drink.strIngredient1
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          drink.strIngredient2
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          drink.strIngredient3.toLowerCase().includes(this.search.toLowerCase())
+        );
       });
     }
   }

@@ -51,7 +51,7 @@
           <p>- {{ drinks.strMeasure1 }} {{ drinks.strIngredient1 }}</p>
           <p>- {{ drinks.strMeasure2 }} {{ drinks.strIngredient2 }}</p>
           <p>- {{ drinks.strMeasure3 }} {{ drinks.strIngredient3 }}</p>
-
+          <br />
           <h3>Instructions:</h3>
           <p>{{ drinks.strInstructions }}</p>
         </v-flex>
