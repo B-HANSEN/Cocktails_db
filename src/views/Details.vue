@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     drinks() {
-      let cocktail = this.$store.getters.getTodoById(
+      let cocktail = this.$store.getters.getSingleCocktail(
         this.$route.params.idDrink
       );
       this.getIngredients(cocktail);

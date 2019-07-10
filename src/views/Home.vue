@@ -2,33 +2,67 @@
   <div class="mainItems">
     <div class="secondLevel">
       <div>
-        <input
-          type="text"
-          class="searchfield"
-          v-model="search"
-          placeholder="Search by Name or Ingredient..."
-        />
-        <div id="button-holder">
-          <img src="../../public/images/magnifier.png" />
-        </div>
-      </div>
-      <div>
-        <!-- drop-down with alcohols -->
         <v-flex xs12 sm6>
-          <v-select v-model="e7" :items="ingredients" label="Select ingredients" multiple chips></v-select>
+          <!-- search field -->
+          <input
+            type="text"
+            class="searchfield"
+            v-model="search"
+            placeholder="Search by Name or Ingredient..."
+          />
+          <!-- search icon: magnifier -->
+          <div id="button-holder">
+            <img src="../../public/images/magnifier.png" />
+          </div>
+          <!-- clear Filter button -->
+          <!-- <v-btn @click="clearFilter">
+            <i class="fas fa-angle-double-up">clear</i>
+          </v-btn>-->
         </v-flex>
       </div>
+
+      <!-- drop-down filters -->
+      <div class="m-control-wrapper">
+        <div>
+          <label class="typo__label"></label>
+          <multiselect
+            v-model="value"
+            tag-placeholder="Add this as new tag"
+            placeholder="Search or add a tag"
+            label="name"
+            track-by="code"
+            :options="options"
+            :multiple="true"
+            :taggable="true"
+            @tag="addTag"
+          ></multiselect>
+        </div>
+      </div>
+
+      <!-- selection box -->
+      <!-- <v-flex xs12 sm6>
+            <v-select
+              :items="ingredients"
+              v-model="selections"
+              label="Select ingredients"
+              multiple
+              chips
+            ></v-select>
+      </v-flex>-->
     </div>
 
+    <!-- container with images and back-to-top-button -->
     <div>
       <v-container>
+        <!-- optional paragraph in case no output -->
         <p v-if="!filteredDrinks.length">There was no match for your search.</p>
+
+        <!-- photo container -->
         <v-layout
           class="pb-2 justify-center"
           v-for="(drink,idDrink) in filteredDrinks"
           :key="idDrink"
         >
-          <!-- photo container -->
           <v-card class="action">
             <v-layout class="pa-3">
               <v-flex>
@@ -47,7 +81,7 @@
                 <p>Glass: {{ drink.strGlass }}</p>
 
                 <router-link :to="'cocktail/' + drink.idDrink">
-                  <v-btn color="info">How to make it</v-btn>
+                  <v-btn color="info">Show recipe</v-btn>
                 </router-link>
               </v-flex>
             </v-layout>
@@ -55,6 +89,7 @@
         </v-layout>
       </v-container>
 
+      <!-- button to top -->
       <back-to-top bottom="0px" right="50px" visibleoffset="200px">
         <button type="button" class="btn btn-info btn-to-top">
           <i class="fas fa-angle-double-up"></i>
@@ -65,99 +100,82 @@
 </template>
 
 <script>
-import BackToTop from "vue-backtotop";
 // import { mapActions } from "vuex";
 // import { mapGetters } from "vuex";
+import BackToTop from "vue-backtotop";
+import Multiselect from "vue-multiselect";
 
 export default {
   data() {
     return {
+      value: [],
       search: "",
-      e7: [],
-      ingredients: [
-        "Alabama",
-        "Alaska",
-        "American Samoa",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Federated States of Micronesia",
-        "Florida",
-        "Georgia",
-        "Guam",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Marshall Islands",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New Hampshire",
-        "New Jersey",
-        "New Mexico",
-        "New York",
-        "North Carolina",
-        "North Dakota",
-        "Northern Mariana Islands",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Palau",
-        "Pennsylvania",
-        "Puerto Rico",
-        "Rhode Island",
-        "South Carolina",
-        "South Dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virgin Island",
-        "Virginia",
-        "Washington",
-        "West Virginia",
-        "Wisconsin",
-        "Wyoming"
+      selections: [],
+      // value: [{ name: "Javascript", code: "js" }],
+      options: [
+        { name: "Amaretto" },
+        { name: "Applejack" },
+        { name: "Apricot brandy" },
+        { name: "Creme de Cacao" },
+        { name: "Creme de Cassis" },
+        { name: "Dry Vermouth" },
+        { name: "Galliano" },
+        { name: "Gin" },
+        { name: "Kahlua" },
+        { name: "Dry Vermouth" },
+        { name: "Red Wine" },
+        { name: "Rum" },
+        { name: "Strawberry schnapps" },
+        { name: "Triple Sec" },
+        { name: "Vodka" },
+        { name: "Whisky" }
       ]
     };
   },
-  components: { BackToTop },
+  components: { BackToTop, Multiselect },
   computed: {
     drinks() {
-      return this.$store.state.drinks;
+      return this.$store.getters.getCocktails; // return getters from store; all Cocktails
     },
-    // ...mapActions(["addCocktails"]),
+    // ...mapActions(["getCocktails"]),
     filteredDrinks: function() {
-      return this.drinks.filter(drink => {
-        return (
-          drink.strDrink.toLowerCase().includes(this.search.toLowerCase()) ||
-          drink.strIngredient1
-            .toLowerCase()
-            .includes(this.search.toLowerCase()) ||
-          drink.strIngredient2
-            .toLowerCase()
-            .includes(this.search.toLowerCase()) ||
-          drink.strIngredient3.toLowerCase().includes(this.search.toLowerCase())
-        );
-      });
+      if (this.selections.length == 0) {
+        return this.drinks;
+      } else {
+        return this.drinks.filter(drink => {
+          let d = false;
+          for (let key in drink) {
+            if (key.includes("Ingredient")) {
+              let s = this.selections.filter(select => {
+                return (
+                  drink[key] != null &&
+                  drink[key].toLowerCase().includes(select.toLowerCase())
+                );
+              });
+              if (s.length != 0) {
+                d = true;
+              }
+            }
+          }
+          return d;
+        });
+      }
+    }
+  },
+  methods: {
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
+      };
+      this.options.push(tag);
+      this.value.push(tag);
     }
   }
+  // ,
+  //   clearFilter() {
+  //     (search = ""), (selections = "");
+  //   }
 };
 </script>
 
@@ -181,7 +199,7 @@ export default {
   box-shadow: 0px 1px 1px 1px #e5e5e5;
   float: left;
   height: 40px;
-  margin: 0.8em 0 0 0.5em;
+  margin: 0.8em 0 0.5em 0.5em;
   outline: 0;
   padding: 0.4em 0 0.4em 0.6em;
   width: 230px;
@@ -204,6 +222,11 @@ export default {
 #button-holder img {
   margin: 4px;
   width: 30px;
+}
+
+.m-control-wrapper {
+  margin: 0.8em 0 0.5em 0.5em;
+  width: 70%;
 }
 
 .action {

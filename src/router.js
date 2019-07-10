@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueRouterBackButton from 'vue-router-back-button'
 
+
 Vue.use(VueRouter);
+
 
 const scrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
@@ -51,5 +53,7 @@ const router = new VueRouter({
 Vue.use(VueRouterBackButton, {
   router
 })
+
+
 
 export default router
