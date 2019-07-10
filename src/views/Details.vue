@@ -1,5 +1,5 @@
 <template>
-  <v-container :drinks="drinks">
+  <v-container :drinks="drinks" v-if="drinks">
     <v-layout row justify-center pb-2>
       <!-- photo container -->
       <v-card>
@@ -50,15 +50,12 @@
     <!-- detail info container -->
     <v-card class="pa-3">
       <v-layout column>
-        <v-flex>
-          <h3>Ingredients:</h3>
-          <p>- {{ drinks.strMeasure1 }} {{ drinks.strIngredient1 }}</p>
-          <p>- {{ drinks.strMeasure2 }} {{ drinks.strIngredient2 }}</p>
-          <p>- {{ drinks.strMeasure3 }} {{ drinks.strIngredient3 }}</p>
-          <br />
-          <h3>Instructions:</h3>
-          <p>{{ drinks.strInstructions }}</p>
+        <h3>Ingredients:</h3>
+        <v-flex v-for="(ingredient, index) in ingredients" :key="index">
+          <p>{{ measures[index] }} {{ ingredient }}</p>
         </v-flex>
+        <h3>Instructions:</h3>
+        <p>{{ drinks.strInstructions }}</p>
       </v-layout>
     </v-card>
   </v-container>
@@ -68,7 +65,12 @@
 <script>
 export default {
   data: () => {
-    return { sumA: 0, sumB: 0 };
+    return {
+      sumA: 0,
+      sumB: 0,
+      measures: [],
+      ingredients: []
+    };
   },
   methods: {
     increment() {
@@ -76,11 +78,32 @@ export default {
     },
     decrement() {
       this.sumB++;
+    },
+    getIngredients(drinks) {
+      this.measures = [];
+      this.ingredients = [];
+      for (let key in drinks) {
+        if (
+          key.includes("strIngredient") &&
+          (drinks[key] != null && drinks[key].length != 0)
+        ) {
+          this.ingredients.push(drinks[key]);
+        } else if (
+          key.includes("strMeasure") &&
+          (drinks[key] != null && drinks[key].length != 0)
+        ) {
+          this.measures.push(drinks[key]);
+        }
+      }
     }
   },
   computed: {
     drinks() {
-      return this.$store.getters.getTodoById(this.$route.params.idDrink);
+      let cocktail = this.$store.getters.getTodoById(
+        this.$route.params.idDrink
+      );
+      this.getIngredients(cocktail);
+      return cocktail;
     }
   }
 };

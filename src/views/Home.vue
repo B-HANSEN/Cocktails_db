@@ -1,14 +1,22 @@
 <template>
   <div class="mainItems">
-    <div>
-      <input
-        type="text"
-        class="searchfield"
-        v-model="search"
-        placeholder="Search by Name or Ingredient..."
-      />
-      <div id="button-holder">
-        <img src="../../public/images/magnifier.png" />
+    <div class="secondLevel">
+      <div>
+        <input
+          type="text"
+          class="searchfield"
+          v-model="search"
+          placeholder="Search by Name or Ingredient..."
+        />
+        <div id="button-holder">
+          <img src="../../public/images/magnifier.png" />
+        </div>
+      </div>
+      <div>
+        <!-- drop-down with alcohols -->
+        <v-flex xs12 sm6>
+          <v-select v-model="e7" :items="ingredients" label="Select ingredients" multiple chips></v-select>
+        </v-flex>
       </div>
     </div>
 
@@ -64,7 +72,69 @@ import BackToTop from "vue-backtotop";
 export default {
   data() {
     return {
-      search: ""
+      search: "",
+      e7: [],
+      ingredients: [
+        "Alabama",
+        "Alaska",
+        "American Samoa",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "District of Columbia",
+        "Federated States of Micronesia",
+        "Florida",
+        "Georgia",
+        "Guam",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Marshall Islands",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Northern Mariana Islands",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Palau",
+        "Pennsylvania",
+        "Puerto Rico",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virgin Island",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming"
+      ]
     };
   },
   components: { BackToTop },
@@ -95,6 +165,12 @@ export default {
 .mainItems {
   display: flex;
   flex-direction: column;
+}
+
+.secondLevel {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
 }
 
 .searchfield {
