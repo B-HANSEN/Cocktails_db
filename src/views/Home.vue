@@ -24,9 +24,9 @@
         <div>
           <label class="typo__label"></label>
           <multiselect
-            v-model="value"
+            v-model="selections"
             tag-placeholder="Add this as new tag"
-            placeholder="Search or add a tag"
+            placeholder="Filter by ingredients"
             label="name"
             track-by="code"
             :options="options"
@@ -124,25 +124,31 @@ export default {
     // ...mapActions(["getCocktails"]),
     filteredDrinks: function() {
       if (this.selections.length == 0) {
-        return this.drinks;
+        return this.drinks.filter(drink =>
+          drink.strDrink.toLowerCase().includes(this.search.toLowerCase())
+        );
       } else {
-        return this.drinks.filter(drink => {
-          let d = false;
-          for (let key in drink) {
-            if (key.includes("Ingredient")) {
-              let s = this.selections.filter(select => {
-                return (
-                  drink[key] != null &&
-                  drink[key].toLowerCase().includes(select.toLowerCase())
-                );
-              });
-              if (s.length != 0) {
-                d = true;
+        return this.drinks
+          .filter(drink => {
+            let d = false;
+            for (let key in drink) {
+              if (key.includes("Ingredient")) {
+                let s = this.selections.filter(select => {
+                  return (
+                    drink[key] != null &&
+                    drink[key].toLowerCase().includes(select.name.toLowerCase())
+                  );
+                });
+                if (s.length != 0) {
+                  d = true;
+                }
               }
             }
-          }
-          return d;
-        });
+            return d;
+          })
+          .filter(drink =>
+            drink.strDrink.toLowerCase().includes(this.search.toLowerCase())
+          );
       }
     }
   },
@@ -153,11 +159,13 @@ export default {
         code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
       };
       this.options.push(tag);
-      this.value.push(tag);
+      this.selections.push(tag);
+    },
+    clearFilter() {
+      this.search = "";
+      this.value = [];
+      this.selections = [];
     }
-  },
-  clearFilter() {
-    (search = ""), (selections = []), (value = []);
   }
 };
 </script>
@@ -220,7 +228,7 @@ export default {
 
 .m-control-wrapper {
   margin: 0.8em 0 0.5em 0.5em;
-  width: 70%;
+  width: 375px;
 }
 
 .action {
