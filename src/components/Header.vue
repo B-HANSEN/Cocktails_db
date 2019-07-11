@@ -10,7 +10,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-menu :nudge-width="150">
+    <v-menu :nudge-width="150" align-center>
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on">
           <v-toolbar-side-icon class="white--text" @click="drawer = !drawer"></v-toolbar-side-icon>

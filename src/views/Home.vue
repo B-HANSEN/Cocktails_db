@@ -1,8 +1,8 @@
 <template>
   <div class="mainItems">
     <div class="secondLevel">
-      <div>
-        <v-flex xs12 sm6>
+      <v-layout wrap>
+        <v-flex wrap="false" xs12 sm6 class="input-parent">
           <!-- search field -->
           <input
             type="text"
@@ -10,6 +10,7 @@
             v-model="search"
             placeholder="Search by name or ingredient..."
           />
+
           <!-- search icon: magnifier -->
           <div id="button-holder">
             <img src="../../public/images/magnifier.png" />
@@ -17,25 +18,27 @@
           <!-- clear Filter button -->
           <v-btn depressed class="btn" v-on:click="clearFilter">CLEAR</v-btn>
         </v-flex>
-      </div>
 
-      <!-- drop-down filters -->
-      <div class="m-control-wrapper">
-        <div>
-          <label class="typo__label"></label>
-          <multiselect
-            v-model="selections"
-            tag-placeholder="Add this as new tag"
-            placeholder="Filter by ingredients..."
-            label="name"
-            track-by="code"
-            :options="options"
-            :multiple="true"
-            :taggable="true"
-            @tag="addTag"
-          ></multiselect>
-        </div>
-      </div>
+        <!-- drop-down filters -->
+        <v-flex xs12 sm6>
+          <div class="m-control-wrapper">
+            <div>
+              <label class="typo__label"></label>
+              <multiselect
+                v-model="selections"
+                tag-placeholder="Add this as new tag"
+                placeholder="Filter by ingredients..."
+                label="name"
+                track-by="code"
+                :options="options"
+                :multiple="true"
+                :taggable="true"
+                @tag="addTag"
+              ></multiselect>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
     </div>
 
     <!-- container with images and back-to-top-button -->
@@ -45,34 +48,40 @@
         <p v-if="!filteredDrinks.length">There was no match for your search.</p>
 
         <!-- photo container -->
-        <v-layout
-          class="pb-2 justify-center"
-          v-for="(drink,idDrink) in filteredDrinks"
-          :key="idDrink"
-        >
-          <v-card class="action">
-            <v-layout class="pa-3">
-              <v-flex>
-                <v-img :src="drink.strDrinkThumb" width="180px"></v-img>
+        <v-layout class="justify-center" wrap>
+          <v-flex
+            class="pb-2 input-parent"
+            xs12
+            sm8
+            v-for="(drink,idDrink) in filteredDrinks"
+            :key="idDrink"
+          >
+            <v-layout align-center>
+              <v-flex xs6 class="card">
+                <v-card class="action">
+                  <v-img :src="drink.strDrinkThumb"></v-img>
+                </v-card>
+              </v-flex>
+
+              <!-- general info container -->
+              <v-flex xs6 class="card">
+                <v-card height="100%" class="action">
+                  <v-layout column pl-3 pt-1>
+                    <v-flex xs6 md3>
+                      <h2>{{ drink.strDrink }}</h2>
+                      <p>Type: {{ drink.strAlcoholic }}</p>
+                      <p>Category: {{ drink.strCategory }}</p>
+                      <p>Glass: {{ drink.strGlass }}</p>
+
+                      <router-link :to="'cocktail/' + drink.idDrink">
+                        <v-btn small color="info">>> Show recipe</v-btn>
+                      </router-link>
+                    </v-flex>
+                  </v-layout>
+                </v-card>
               </v-flex>
             </v-layout>
-          </v-card>
-
-          <!-- general info container -->
-          <v-card>
-            <v-layout column pa-3>
-              <v-flex>
-                <h2>{{ drink.strDrink }}</h2>
-                <p>Type: {{ drink.strAlcoholic }}</p>
-                <p>Category: {{ drink.strCategory }}</p>
-                <p>Glass: {{ drink.strGlass }}</p>
-
-                <router-link :to="'cocktail/' + drink.idDrink">
-                  <v-btn color="info">Show recipe</v-btn>
-                </router-link>
-              </v-flex>
-            </v-layout>
-          </v-card>
+          </v-flex>
         </v-layout>
       </v-container>
 
@@ -142,8 +151,17 @@ export default {
             }
             return d;
           })
-          .filter(drink =>
-            drink.strDrink.toLowerCase().includes(this.search.toLowerCase())
+          .filter(
+            drink =>
+              drink.strDrink
+                .toLowerCase()
+                .includes(this.search.toLowerCase()) ||
+              drink.strIngredient1
+                .toLowerCase()
+                .includes(this.search.toLowerCase()) ||
+              drink.strIngredient2
+                .toLowerCase()
+                .includes(this.search.toLowerCase())
           );
       }
     }
@@ -178,6 +196,10 @@ export default {
   padding: 5px;
 }
 
+.input-parent {
+  display: flex;
+}
+
 .searchfield {
   border-top: thin solid #e5e5e5;
   border-right: thin solid #e5e5e5;
@@ -189,8 +211,9 @@ export default {
   margin: 0.8em 0 0.5em 0.5em;
   outline: 0;
   padding: 0.4em 0 0.4em 0.6em;
-  width: 230px;
+  /* width: 230px; */
   background-color: white;
+  flex-grow: 1;
 }
 
 .btn {
@@ -224,7 +247,7 @@ export default {
 
 .m-control-wrapper {
   margin: 0.8em 0 0.5em 0.5em;
-  width: 375px;
+  /* width: 375px; */
 }
 
 .action {
@@ -241,5 +264,9 @@ export default {
   font-size: 45px;
   line-height: 22px;
   color: #546e7a;
+}
+
+.card {
+  height: 100%;
 }
 </style>

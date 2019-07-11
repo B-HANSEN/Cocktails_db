@@ -81,8 +81,10 @@ export const store = new Vuex.Store({
             state.errors = payload
         }
     },
+    // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
     actions: {
         getCocktails(context) {
+            // axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i`)
             axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s`)
                 .then(response => {
                     context.commit("addCocktails", response.data.drinks)
