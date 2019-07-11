@@ -1,5 +1,5 @@
 <template>
-  <div class="mainItems">
+  <divk class="mainItems">
     <div class="secondLevel">
       <v-layout wrap>
         <v-flex wrap="false" xs12 sm6 class="input-parent">
@@ -92,7 +92,7 @@
         </button>
       </back-to-top>
     </div>
-  </div>
+  </divk>
 </template>
 
 <script>
@@ -105,7 +105,6 @@ export default {
   data() {
     return {
       search: "",
-      // value: [],
       selections: []
       // function does not work as computed{} refers to selections and Multiselect refers to value
       // but replacing selections with value and value with selections does not work
@@ -170,7 +169,6 @@ export default {
     addTag(newTag) {
       const tag = {
         name: newTag
-        // code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
       };
       this.options.push(tag);
       this.selections.push(tag);
