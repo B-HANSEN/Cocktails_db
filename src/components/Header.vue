@@ -1,13 +1,12 @@
 <template>
   <v-toolbar app class="blue-grey darken-1 white--text">
-    <v-btn icon class="hidden-xs-only" @click="$router.go(-1)">
+    <v-btn icon @click="$router.go(-1)">
       <v-icon class="white--text">arrow_back</v-icon>
     </v-btn>
-    <v-spacer></v-spacer>
-    <v-toolbar-title>
+    <v-layout align-center>
       <img class="logo" src="../assets/cocktail_logo4.png" alt="logo" />
       <!-- <v-spacer></v-spacer> -->
-    </v-toolbar-title>
+    </v-layout>
 
     <v-spacer></v-spacer>
 
@@ -37,46 +36,6 @@
       </v-list>
     </v-menu>
   </v-toolbar>
-
-  <!-- <v-toolbar app class="blue-grey darken-1 white--text">
-    <v-btn depressed color="blue-grey darken-1" dark @click="$router.go(-1)">
-      <v-icon big>arrow_back_ios</v-icon>
-    </v-btn>
-
-    <v-btn icon class="hidden-xs-only" @click="$router.go(-1)">
-      <v-icon>arrow_back</v-icon>
-    </v-btn>
-
-    <v-spacer></v-spacer>
-    <img class="logo" src="../assets/cocktail_logo4.png" alt="logo" />
-    <v-spacer></v-spacer>
-
-    <v-menu :nudge-width="150">
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on">
-          <v-toolbar-side-icon class="white--text" @click="drawer = !drawer"></v-toolbar-side-icon>
-        </v-btn>
-      </template>
-
-      <v-list two-line>
-        <v-layout justify-center class="bg">
-          <h2>NAVIGATION</h2>
-        </v-layout>
-        <v-divider></v-divider>
-        <template v-for="(link, index) in links">
-          <v-list-tile :key="index" ripple :to="link.to">
-            <v-list-tile-action>
-              <v-icon>{{ link.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ link.name }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-divider v-if="index + 1 < links.length" :key="`divider-${index}`"></v-divider>
-        </template>
-      </v-list>
-    </v-menu>
-  </v-toolbar>-->
 </template>
 
 <script>
@@ -103,7 +62,4 @@ export default {
 .logo {
   width: 250px;
 }
-/* .bg {
-  background-color: lightgrey;
-} */
 </style>
