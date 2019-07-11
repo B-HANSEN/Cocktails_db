@@ -8,7 +8,7 @@
             type="text"
             class="searchfield"
             v-model="search"
-            placeholder="Search by Name or Ingredient..."
+            placeholder="Search by name or ingredient..."
           />
           <!-- search icon: magnifier -->
           <div id="button-holder">
@@ -26,7 +26,7 @@
           <multiselect
             v-model="selections"
             tag-placeholder="Add this as new tag"
-            placeholder="Filter by ingredients"
+            placeholder="Filter by ingredients..."
             label="name"
             track-by="code"
             :options="options"
@@ -36,17 +36,6 @@
           ></multiselect>
         </div>
       </div>
-
-      <!-- selection box -->
-      <!-- <v-flex xs12 sm6>
-            <v-select
-              :items="ingredients"
-              v-model="selections"
-              label="Select ingredients"
-              multiple
-              chips
-            ></v-select>
-      </v-flex>-->
     </div>
 
     <!-- container with images and back-to-top-button -->
@@ -107,7 +96,7 @@ export default {
   data() {
     return {
       search: "",
-      value: [],
+      // value: [],
       selections: []
       // function does not work as computed{} refers to selections and Multiselect refers to value
       // but replacing selections with value and value with selections does not work
@@ -124,8 +113,15 @@ export default {
     // ...mapActions(["getCocktails"]),
     filteredDrinks: function() {
       if (this.selections.length == 0) {
-        return this.drinks.filter(drink =>
-          drink.strDrink.toLowerCase().includes(this.search.toLowerCase())
+        return this.drinks.filter(
+          drink =>
+            drink.strDrink.toLowerCase().includes(this.search.toLowerCase()) ||
+            drink.strIngredient1
+              .toLowerCase()
+              .includes(this.search.toLowerCase()) ||
+            drink.strIngredient2
+              .toLowerCase()
+              .includes(this.search.toLowerCase())
         );
       } else {
         return this.drinks
@@ -155,15 +151,15 @@ export default {
   methods: {
     addTag(newTag) {
       const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
+        name: newTag
+        // code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
       };
       this.options.push(tag);
       this.selections.push(tag);
     },
     clearFilter() {
       this.search = "";
-      this.value = [];
+      // this.value = [];
       this.selections = [];
     }
   }
