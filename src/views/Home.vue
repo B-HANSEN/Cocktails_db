@@ -15,9 +15,7 @@
             <img src="../../public/images/magnifier.png" />
           </div>
           <!-- clear Filter button -->
-          <!-- <v-btn @click="clearFilter">
-            <i class="fas fa-angle-double-up">clear</i>
-          </v-btn>-->
+          <v-btn depressed class="btn" v-on:click="clearFilter">CLEAR</v-btn>
         </v-flex>
       </div>
 
@@ -108,34 +106,20 @@ import Multiselect from "vue-multiselect";
 export default {
   data() {
     return {
-      value: [],
       search: "",
-      selections: [],
-      // value: [{ name: "Javascript", code: "js" }],
-      options: [
-        { name: "Amaretto" },
-        { name: "Applejack" },
-        { name: "Apricot brandy" },
-        { name: "Creme de Cacao" },
-        { name: "Creme de Cassis" },
-        { name: "Dry Vermouth" },
-        { name: "Galliano" },
-        { name: "Gin" },
-        { name: "Kahlua" },
-        { name: "Dry Vermouth" },
-        { name: "Red Wine" },
-        { name: "Rum" },
-        { name: "Strawberry schnapps" },
-        { name: "Triple Sec" },
-        { name: "Vodka" },
-        { name: "Whisky" }
-      ]
+      value: [],
+      selections: []
+      // function does not work as computed{} refers to selections and Multiselect refers to value
+      // but replacing selections with value and value with selections does not work
     };
   },
   components: { BackToTop, Multiselect },
   computed: {
     drinks() {
       return this.$store.getters.getCocktails; // return getters from store; all Cocktails
+    },
+    options() {
+      return this.$store.getters.options; // return options object from store getters
     },
     // ...mapActions(["getCocktails"]),
     filteredDrinks: function() {
@@ -171,11 +155,10 @@ export default {
       this.options.push(tag);
       this.value.push(tag);
     }
+  },
+  clearFilter() {
+    (search = ""), (selections = []), (value = []);
   }
-  // ,
-  //   clearFilter() {
-  //     (search = ""), (selections = "");
-  //   }
 };
 </script>
 
@@ -204,6 +187,17 @@ export default {
   padding: 0.4em 0 0.4em 0.6em;
   width: 230px;
   background-color: white;
+}
+
+.btn {
+  border-top: thin solid #e5e5e5;
+  border-right: thin solid #e5e5e5;
+  border-bottom: 0;
+  border-left: thin solid #e5e5e5;
+  box-shadow: 0px 1px 1px 1px #e5e5e5;
+  height: 40px;
+  margin: 0.8em 0 0em 0.5em;
+  outline: 0;
 }
 
 #button-holder {

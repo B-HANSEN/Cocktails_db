@@ -10,7 +10,68 @@ Vue.use(VueAxios, axios)
 export const store = new Vuex.Store({
     state: {
         drinks: [],
-        errors: []
+        errors: [],
+        options: [{
+                name: "Amaretto",
+                code: "am"
+            },
+            {
+                name: "Applejack",
+                code: "app"
+            },
+            {
+                name: "Apricot brandy",
+                code: "apr"
+            },
+            {
+                name: "Creme de Cacao",
+                code: "cacao"
+            },
+            {
+                name: "Creme de Cassis",
+                code: "cassis"
+            },
+            {
+                name: "Dry Vermouth",
+                code: "verm"
+            },
+            {
+                name: "Galliano",
+                code: "gall"
+            },
+            {
+                name: "Gin",
+                code: "gin"
+            },
+            {
+                name: "Kahlua",
+                code: "kah"
+            },
+            {
+                name: "Red Wine",
+                code: "wine"
+            },
+            {
+                name: "Rum",
+                code: "rum"
+            },
+            {
+                name: "Strawberry schnapps",
+                code: "schn"
+            },
+            {
+                name: "Triple Sec",
+                code: "sec"
+            },
+            {
+                name: "Vodka",
+                code: "vod"
+            },
+            {
+                name: "Whisky",
+                code: "whi"
+            }
+        ]
     },
     mutations: {
         addCocktails: (state, value) => {
@@ -42,6 +103,9 @@ export const store = new Vuex.Store({
         },
         getSingleCocktail: (state) => (id) => {
             return state.drinks.find(drink => drink.idDrink === id)
+        },
+        options: (state) => {
+            return state.options
         }
     }
 })
