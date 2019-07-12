@@ -86,7 +86,7 @@
       </v-container>
 
       <!-- button to top -->
-      <back-to-top bottom="0px" right="50px" visibleoffset="200px">
+      <back-to-top bottom="5px" right="10px" visibleoffset="120px">
         <button type="button" class="btn btn-info btn-to-top">
           <i class="fas fa-angle-double-up"></i>
         </button>
@@ -255,13 +255,13 @@ export default {
 }
 
 .btn-to-top {
-  width: 60px;
-  height: 60px;
-  padding: 10px 16px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  font-size: 45px;
+  font-size: 30px;
   line-height: 22px;
-  color: #546e7a;
+  color: white;
+  background-color: #546e7a;
 }
 
 .card {
