@@ -1,5 +1,5 @@
 <template>
-  <divk class="mainItems">
+  <div class="mainItems">
     <div class="secondLevel">
       <v-layout wrap>
         <v-flex wrap="false" xs12 sm6 class="input-parent">
@@ -92,7 +92,7 @@
         </button>
       </back-to-top>
     </div>
-  </divk>
+  </div>
 </template>
 
 <script>

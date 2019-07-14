@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios)
@@ -71,7 +72,8 @@ export const store = new Vuex.Store({
                 name: "Whisky",
                 code: "whi"
             }
-        ]
+        ],
+        user: null,
     },
     mutations: {
         addCocktails: (state, value) => {
@@ -79,6 +81,9 @@ export const store = new Vuex.Store({
         }, // change state
         setError: (state, payload) => {
             state.errors = payload
+        },
+        setUser(state, payload) {
+            state.user = payload
         }
     },
     // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
@@ -88,7 +93,6 @@ export const store = new Vuex.Store({
             axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s`)
                 .then(response => {
                     context.commit("addCocktails", response.data.drinks)
-                    // context.state.drinks = response.data.drinks
                 }) // fetch and commit the mutation
                 .catch(e => {
                     console.log(e);
@@ -97,6 +101,35 @@ export const store = new Vuex.Store({
         setError: (context, payload) => {
             console.log(context, payload);
             context.commit("setError", payload)
+        },
+        signUserUp({
+            commit
+        }, payload) {
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    user => {
+                        const newUser = {
+                            id: user.uid
+                        }
+                        commit('setUser', newUser)
+                    }
+                ).catch(error => {
+                    console.log(error)
+                })
+        },
+        signUserIn({
+            commit
+        }, payload) {
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    user => {
+                        const newUser = {
+                            id: user.uid
+                        }
+                        commit('setUser', newUser)
+                    }).catch(error => {
+                    console.log(error)
+                })
         }
     },
     getters: {
@@ -108,6 +141,9 @@ export const store = new Vuex.Store({
         },
         options: (state) => {
             return state.options
+        },
+        user(state) {
+            return state.user
         }
     }
 })
