@@ -43,7 +43,8 @@ export default {
   data: () => ({
     links: [
       { icon: "home", name: "HOME", to: "/" },
-      { icon: "fingerprint", name: "LOGIN", to: "/login" },
+      { icon: "fingerprint", name: "SIGNUP", to: "/signup" },
+      { icon: "input", name: "LOGIN", to: "/login" },
       { icon: "face", name: "PROFILE", to: "/profile" },
       { icon: "question_answer", name: "CHATROOM", to: "/chatroom" }
     ],

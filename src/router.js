@@ -33,9 +33,14 @@ const router = new VueRouter({
       component: () => import('./views/Details.vue')
     },
     {
-      path: '/login',
-      name: 'Login',
+      path: '/signup',
+      name: 'Signup',
       component: () => import('./views/Signup.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Signin.vue')
     },
     {
       path: '/chatroom',
