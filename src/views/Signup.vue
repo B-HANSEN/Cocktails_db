@@ -9,6 +9,19 @@
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
+                      name="username"
+                      label="User Name"
+                      id="username"
+                      v-model="userName"
+                      type="text"
+                      autocomplete="username"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
                       name="email"
                       label="Mail"
                       id="email"
@@ -70,7 +83,8 @@ export default {
     return {
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      userName: ""
     };
   },
   computed: {
@@ -95,7 +109,8 @@ export default {
     onSignup() {
       this.$store.dispatch("signUserUp", {
         email: this.email,
-        password: this.password
+        password: this.password,
+        userName: this.userName
       });
     }
   }

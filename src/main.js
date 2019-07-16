@@ -30,6 +30,19 @@ new Vue({
   render: h => h(App),
   created() {
     this.$store.dispatch('getCocktails')
+    firebase.auth().onAuthStateChanged((user) => {
+      let that = this;
+      if (user) {
+        that.$store.commit('setUser', user)
+      } else {
+        that.$store.commit('setUser', null)
+      }
+    })
+
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    //   .then(function () {
+    //     return firebase.auth().signInWithEmailAndPassword(email, password);
+    //   })
 
   }
 }).$mount('#app')

@@ -2,8 +2,15 @@
   <div>
     <h1 class="pa-2">CHATROOM</h1>
 
-    <v-card class="mx-auto" color="#26c6da" dark max-width="400">
+    <v-card class="mx-auto" color="#26c6da" dark max-width="600">
       <v-layout justify-center>
+        <!-- <v-progress-circular
+          indeterminate
+          class="primary--text"
+          :width="7"
+          :size="70"
+          v-if="loading"
+        ></v-progress-circular>-->
         <v-card-title>
           <span class="title font-weight-light">Chat topic</span>
           <!-- TODO, create new input field for topic -->
@@ -32,8 +39,11 @@
         <p v-if="chats.length == 0">No messages yet!</p>
         <ul class="messages">
           <li v-for="(chat, index) in chats" :key="index">
-            <span>{{chat.name}}</span>
-            <span>{{chat.msg}}</span>
+            <p
+              v-if="chat.name===getUser.displayName"
+              class="text-xs-right"
+            >{{chat.msg}} : {{chat.name}}</p>
+            <p v-else class="text-xs-left">{{chat.name}}: {{chat.msg}}</p>
           </li>
         </ul>
       </form>
@@ -86,10 +96,11 @@ export default {
         .ref("chats")
         // writing data into db:
         .push({
-          name: that.getUser.email,
+          name: that.getUser.displayName,
           msg: that.inputText
           // topic: that.topic,
         });
+      this.msg = "";
     },
     getPosts() {
       let that = this;
@@ -117,6 +128,12 @@ export default {
     getUser() {
       return this.$store.getters.user;
     }
+    // ,
+    // loading () {
+    // return {
+    //   this.$store.getters.loading
+    // }
+    // }
   },
   created() {
     this.getPosts();

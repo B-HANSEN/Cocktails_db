@@ -108,16 +108,37 @@ export const store = new Vuex.Store({
         }, payload) {
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
                 .then(
-                    user => {
-                        console.log(user.user);
 
-                        const newUser = {
-                            id: user.user.uid,
-                            email: user.user.email
-                        }
-                        commit('setUser', newUser)
+                    user => {
+                        // let current = firebase.auth().currentUser;
+
+                        user.user.updateProfile({
+                            displayName: payload.userName
+                        }).then(function () {
+                                // Update successful.
+                                console.log(user.user);
+
+                                const newUser = {
+                                    id: user.user.uid,
+                                    email: user.user.email,
+                                    name: user.user.displayName
+                                }
+                                commit('setUser', newUser)
+
+                            }
+                            // , function (error) {
+                            //     // An error happened.
+                            //     console.log("Something went wrong");
+
+                            // }
+                        );
+
                     }
-                ).catch(error => {
+                )
+                .then(() => {
+
+                })
+                .catch(error => {
                     console.log(error)
                 })
         },
@@ -133,7 +154,8 @@ export const store = new Vuex.Store({
                             // this.$store.commit('setCurrentUser', user.user) instead of 
                             // this.$store.commit('setCurrentUser', user)
                             id: user.user.uid,
-                            email: user.user.email
+                            email: user.user.email,
+                            name: user.user.displayName
                         }
                         commit('setUser', newUser)
                     })
