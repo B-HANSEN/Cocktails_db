@@ -73,7 +73,7 @@ export const store = new Vuex.Store({
                 code: "whi"
             }
         ],
-        user: null,
+        user: null
     },
     mutations: {
         // change state
@@ -115,29 +115,18 @@ export const store = new Vuex.Store({
                         user.user.updateProfile({
                             displayName: payload.userName
                         }).then(function () {
-                                // Update successful.
-                                console.log(user.user);
+                            // Update successful.
+                            console.log(user.user);
 
-                                const newUser = {
-                                    id: user.user.uid,
-                                    email: user.user.email,
-                                    name: user.user.displayName
-                                }
-                                commit('setUser', newUser)
-
+                            const newUser = {
+                                id: user.user.uid,
+                                email: user.user.email,
+                                name: user.user.displayName
                             }
-                            // , function (error) {
-                            //     // An error happened.
-                            //     console.log("Something went wrong");
-
-                            // }
-                        );
-
+                            commit('setUser', newUser)
+                        });
                     }
                 )
-                .then(() => {
-
-                })
                 .catch(error => {
                     console.log(error)
                 })

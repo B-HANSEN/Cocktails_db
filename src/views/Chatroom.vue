@@ -1,16 +1,12 @@
 <template>
   <div>
     <h1 class="pa-2">CHATROOM</h1>
+    <v-flex xs12 class="text-xs-center">
+      <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
+    </v-flex>
 
-    <v-card class="mx-auto" color="#26c6da" dark max-width="600">
+    <v-card class="mx-auto" color="#26c6da" dark max-width="600" v-if="!loading">
       <v-layout justify-center>
-        <!-- <v-progress-circular
-          indeterminate
-          class="primary--text"
-          :width="7"
-          :size="70"
-          v-if="loading"
-        ></v-progress-circular>-->
         <v-card-title>
           <span class="title font-weight-light">Chat topic</span>
           <!-- TODO, create new input field for topic -->
@@ -83,7 +79,8 @@ export default {
       inputText: "",
       chats: [],
       // TODO: define topic before first chat
-      topic: ""
+      topic: "",
+      loading: false
     };
   },
   methods: {
@@ -104,6 +101,7 @@ export default {
     },
     getPosts() {
       let that = this;
+      that.loading = true;
       firebase
         .database()
         .ref("chats")
@@ -117,6 +115,7 @@ export default {
               name: obj[key].name,
               msg: obj[key].msg
             });
+            that.loading = false;
           }
         })
         .catch(err => {
@@ -128,12 +127,6 @@ export default {
     getUser() {
       return this.$store.getters.user;
     }
-    // ,
-    // loading () {
-    // return {
-    //   this.$store.getters.loading
-    // }
-    // }
   },
   created() {
     this.getPosts();
