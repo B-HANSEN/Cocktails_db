@@ -14,6 +14,7 @@
                       id="email"
                       v-model="email"
                       type="email"
+                      autocomplete="username"
                       required
                     ></v-text-field>
                   </v-flex>
@@ -27,6 +28,7 @@
                       id="password"
                       v-model="password"
                       type="password"
+                      autocomplete="new-password"
                       required
                     ></v-text-field>
                   </v-flex>
@@ -35,6 +37,7 @@
                 <v-layout row>
                   <v-flex xs12>
                     <v-btn type="submit">Sign-in</v-btn>
+                    <v-btn type="submit" @submit.prevent="logout">Logout</v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -72,6 +75,11 @@ export default {
       this.$store.dispatch("signUserIn", {
         email: this.email,
         password: this.password
+      });
+    },
+    logout() {
+      this.$store.dispatch("logout", {
+        email: this.email
       });
     }
   }

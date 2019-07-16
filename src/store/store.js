@@ -6,7 +6,7 @@ import * as firebase from 'firebase'
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios)
-
+Vue.use(firebase)
 
 export const store = new Vuex.Store({
     state: {
@@ -76,24 +76,25 @@ export const store = new Vuex.Store({
         user: null,
     },
     mutations: {
+        // change state
         addCocktails: (state, value) => {
             state.drinks = value
-        }, // change state
+        },
         setError: (state, payload) => {
             state.errors = payload
         },
         setUser(state, payload) {
+            console.log(payload);
             state.user = payload
         }
     },
-    // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
     actions: {
         getCocktails(context) {
-            // axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i`)
+            // fetch and commit the mutation
             axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s`)
                 .then(response => {
                     context.commit("addCocktails", response.data.drinks)
-                }) // fetch and commit the mutation
+                })
                 .catch(e => {
                     console.log(e);
                 })
@@ -108,8 +109,11 @@ export const store = new Vuex.Store({
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
                 .then(
                     user => {
+                        console.log(user.user);
+
                         const newUser = {
-                            id: user.uid
+                            id: user.user.uid,
+                            email: user.user.email
                         }
                         commit('setUser', newUser)
                     }
@@ -123,12 +127,27 @@ export const store = new Vuex.Store({
             firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
                 .then(
                     user => {
+                        console.log(user.user);
                         const newUser = {
-                            id: user.uid
+                            // Firebase has changed the return object, you should pass in user.user now
+                            // this.$store.commit('setCurrentUser', user.user) instead of 
+                            // this.$store.commit('setCurrentUser', user)
+                            id: user.user.uid,
+                            email: user.user.email
                         }
                         commit('setUser', newUser)
-                    }).catch(error => {
+                    })
+                .catch(error => {
                     console.log(error)
+                })
+        },
+        logout() {
+            firebase.auth().signOut()
+                .then(() => {
+                    this.$router.replace('/')
+                })
+                .catch((err) => {
+                    console.log(err)
                 })
         }
     },
@@ -142,7 +161,7 @@ export const store = new Vuex.Store({
         options: (state) => {
             return state.options
         },
-        user(state) {
+        user: (state) => {
             return state.user
         }
     }

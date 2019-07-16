@@ -44,7 +44,7 @@ export default {
     links: [
       { icon: "home", name: "HOME", to: "/" },
       { icon: "fingerprint", name: "SIGNUP", to: "/signup" },
-      { icon: "input", name: "LOGIN", to: "/login" },
+      { icon: "input", name: "LOGIN / LOGOUT", to: "/login" },
       { icon: "face", name: "PROFILE", to: "/profile" },
       { icon: "question_answer", name: "CHATROOM", to: "/chatroom" }
     ],
