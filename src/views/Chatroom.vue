@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1 class="pa-2">CHATROOM</h1>
+    <v-layout>
+      <v-flex xs12>
+        <h2 class="pa-2">CHATROOM</h2>
+        <v-btn @click="createNewChat">Create new chat</v-btn>
+      </v-flex>
+    </v-layout>
+
     <v-flex xs12 class="text-xs-center">
       <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
     </v-flex>
@@ -8,7 +14,7 @@
     <v-card class="mx-auto" color="#26c6da" dark max-width="600" v-if="!loading">
       <v-layout justify-center>
         <v-card-title>
-          <span class="title font-weight-light">Chat topic</span>
+          <span class="title font-weight-light">{{ this.chatTitle }}</span>
           <!-- TODO, create new input field for topic -->
         </v-card-title>
       </v-layout>
@@ -62,9 +68,14 @@
       </v-layout>
 
       <!-- new chats -->
-      <form @submit.prevent="writeNewPost">
-        <input class="input" type="text" name="chat" v-model="inputText" />
-        <button type="submit">Post chat</button>
+      <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
+        <input
+          class="input"
+          type="text"
+          name="chat"
+          v-model="inputText"
+          placeholder="Please input chat text here..."
+        />
       </form>
     </v-card>
   </div>
@@ -78,13 +89,29 @@ export default {
     return {
       inputText: "",
       chats: [],
-      // TODO: define topic before first chat
-      topic: "",
-      loading: false
+      loading: false,
+      newChat: {
+        displayName: "",
+        chatTitle: "",
+        chatID: ""
+      }
     };
   },
   methods: {
+    // create new chat
+    createNewChat() {
+      let chatTitle = prompt("Please enter a chat title");
+      let that = this;
+      firebase
+        .database()
+        .ref("newChat")
+        .push({
+          name: that.getUser.displayName,
+          chatTitle: that.chatTitle
+        });
+    },
     writeNewPost() {
+      // write new post into firebase
       let that = this;
       console.log(this.chat, Date.now());
       firebase
@@ -95,11 +122,11 @@ export default {
         .push({
           name: that.getUser.displayName,
           msg: that.inputText
-          // topic: that.topic,
         });
-      this.msg = "";
+      that.inputText = "";
     },
     getPosts() {
+      // load posts from firebase
       let that = this;
       that.loading = true;
       firebase
@@ -137,9 +164,12 @@ export default {
 
 <style>
 .input {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
   background-color: white;
-  margin: 5px;
   color: black;
-  width: 350px;
+  width: 95%;
 }
 </style>
