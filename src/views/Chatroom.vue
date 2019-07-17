@@ -11,12 +11,12 @@
     <v-card class="mx-auto" color="#26c6da" dark max-width="600">
       <v-layout justify-center>
         <v-card-title>
-          <span class="title font-weight-light">{{ id }}</span>
+          <span class="title font-weight-bold">{{ id }}</span>
         </v-card-title>
       </v-layout>
       <!-- chat history: -->
       <div v-if="chats.length == 0">
-        <p>No messages yet!</p>
+        <p class="pb-3">No messages yet!</p>
       </div>
       <div v-else>
         <div v-for="(chat, index) in refreshPosts" :key="index">
@@ -69,13 +69,16 @@
 
       <!-- new chats -->
       <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
-        <input
-          class="input"
-          type="text"
-          name="chat"
-          v-model="inputText"
-          placeholder="Please input chat text here..."
-        />
+        <v-layout>
+          <input
+            class="input"
+            type="text"
+            name="chat"
+            v-model="inputText"
+            placeholder="Please input chat text here..."
+          />
+          <v-btn small @click="writeNewPost">POST</v-btn>
+        </v-layout>
       </form>
     </v-card>
   </div>
