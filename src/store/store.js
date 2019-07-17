@@ -174,6 +174,9 @@ export const store = new Vuex.Store({
         },
         user: (state) => {
             return state.user
-        }
+        },
+        get: (state) => (id) => {
+            return state.drinks.find(drink => drink.idDrink === id)
+        },
     }
 })

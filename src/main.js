@@ -38,11 +38,5 @@ new Vue({
         that.$store.commit('setUser', null)
       }
     })
-
-    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-    //   .then(function () {
-    //     return firebase.auth().signInWithEmailAndPassword(email, password);
-    //   })
-
   }
 }).$mount('#app')

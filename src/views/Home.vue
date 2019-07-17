@@ -74,7 +74,7 @@
                       <p>Glass: {{ drink.strGlass }}</p>
 
                       <router-link :to="'cocktail/' + drink.idDrink">
-                        <v-btn small color="info">>> Show recipe</v-btn>
+                        <v-btn small color="info">Show recipe</v-btn>
                       </router-link>
                     </v-flex>
                   </v-layout>

@@ -43,6 +43,11 @@ const router = new VueRouter({
       component: () => import('./views/Signin.vue')
     },
     {
+      path: '/chatrooms',
+      name: 'chatrooms',
+      component: () => import('./views/Chatrooms.vue')
+    },
+    {
       path: '/chatroom',
       name: 'Chatroom',
       component: () => import('./views/Chatroom.vue')

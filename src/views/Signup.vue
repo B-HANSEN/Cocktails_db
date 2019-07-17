@@ -6,6 +6,7 @@
           <v-card-text>
             <v-container>
               <form @submit.prevent="onSignup">
+                <!-- user name creation -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -19,6 +20,8 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
+
+                <!-- name creation -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -33,6 +36,7 @@
                   </v-flex>
                 </v-layout>
 
+                <!-- password creation -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -47,6 +51,7 @@
                   </v-flex>
                 </v-layout>
 
+                <!-- confirm password -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -61,6 +66,18 @@
                   </v-flex>
                 </v-layout>
 
+                <!-- create profile pic -->
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      name="photoURL"
+                      label="Profile Pic"
+                      id="photoURL"
+                      v-model="photoURL"
+                      type="url"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
                 <v-layout row>
                   <v-flex xs12>
                     <v-btn type="submit">Sign-up</v-btn>
@@ -84,7 +101,8 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
-      userName: ""
+      userName: "",
+      photoURL: ""
     };
   },
   computed: {
@@ -110,7 +128,8 @@ export default {
       this.$store.dispatch("signUserUp", {
         email: this.email,
         password: this.password,
-        userName: this.userName
+        userName: this.userName,
+        photoURL: this.photoURL
       });
     }
   }
