@@ -113,7 +113,6 @@ export const store = new Vuex.Store({
                             displayName: payload.userName,
                             photoURL: "https:\/\/randomuser.me\/api\/portraits\/women\/26.jpg"
                         }).then(function () {
-                            // Update successful.
                             console.log(user.user);
 
                             const newUser = {
@@ -123,11 +122,12 @@ export const store = new Vuex.Store({
                                 image: user.user.photoURL
                             }
                             commit('setUser', newUser)
-                        });
+                        })
                     }
                 )
                 .catch(error => {
                     console.log(error)
+                    alert("Something went wrong.")
                 })
         },
         signUserIn({
@@ -138,6 +138,7 @@ export const store = new Vuex.Store({
                     user => {
                         console.log(user.user);
                         console.log(user.user.uid);
+                        alert("You have been signed in.")
                         const newUser = {
                             // Firebase has changed the return object, you should pass in user.user now
                             // this.$store.commit('setCurrentUser', user.user) instead of 
@@ -150,16 +151,17 @@ export const store = new Vuex.Store({
                     })
                 .catch(error => {
                     console.log(error)
+                    alert("Something went wrong.")
                 })
         },
         logout() {
             firebase.auth().signOut()
                 .then(() => {
-                    // this.$router.push('/')
                     alert("You have been logged out successfully.")
                 })
                 .catch((err) => {
                     console.log(err)
+                    alert("Something went wrong.")
                 })
         }
     },

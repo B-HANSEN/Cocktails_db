@@ -96,8 +96,6 @@
 </template>
 
 <script>
-// import { mapActions } from "vuex";
-// import { mapGetters } from "vuex";
 import BackToTop from "vue-backtotop";
 import Multiselect from "vue-multiselect";
 
@@ -118,6 +116,7 @@ export default {
     },
     filteredDrinks: function() {
       if (this.selections.length == 0) {
+        // search field
         return this.drinks.filter(
           drink =>
             drink.strDrink.toLowerCase().includes(this.search.toLowerCase()) ||
@@ -129,6 +128,7 @@ export default {
               .includes(this.search.toLowerCase())
         );
       } else {
+        // selections drop-down
         return this.drinks
           .filter(drink => {
             let d = false;
@@ -172,7 +172,6 @@ export default {
     },
     clearFilter() {
       this.search = "";
-      // this.value = [];
       this.selections = [];
     }
   }
@@ -206,7 +205,6 @@ export default {
   margin: 0.8em 0 0.5em 0.5em;
   outline: 0;
   padding: 0.4em 0 0.4em 0.6em;
-  /* width: 230px; */
   background-color: white;
   flex-grow: 1;
 }
