@@ -48,7 +48,8 @@ const router = new VueRouter({
       component: () => import('./views/Chatrooms.vue')
     },
     {
-      path: '/chatroom',
+      path: '/chatroom/:id',
+      props: true,
       name: 'Chatroom',
       component: () => import('./views/Chatroom.vue')
     },

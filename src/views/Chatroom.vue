@@ -3,61 +3,69 @@
     <h2 class="pa-2">CHATROOM</h2>
 
     <!-- loader while chats are loading -->
-    <v-flex class="loader">
+    <!-- <v-flex class="loader">
       <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
-    </v-flex>
+    </v-flex>-->
 
     <!-- chat title -->
-    <v-card class="mx-auto" color="#26c6da" dark max-width="600" v-if="!loading">
+    <v-card class="mx-auto" color="#26c6da" dark max-width="600">
       <v-layout justify-center>
         <v-card-title>
-          <span class="title font-weight-light">get chat titled inserted</span>
+          <span class="title font-weight-light">{{ id }}</span>
         </v-card-title>
       </v-layout>
+      <!-- chat history: -->
+      <div v-if="chats.length == 0">
+        <p>No messages yet!</p>
+      </div>
+      <div v-else>
+        <div v-for="(chat, index) in refreshPosts" :key="index">
+          <div v-if="getUser && chat.name !== getUser.displayName">
+            <!-- display other user names -->
+            <v-layout align-center justify-start fill-height>
+              <v-card-actions>
+                <v-list-tile class="grow">
+                  <v-list-tile-avatar color="grey darken-3">
+                    <v-img
+                      class="elevation-6"
+                      src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
+                    ></v-img>
+                  </v-list-tile-avatar>
 
-      <!-- display user name -->
-      <v-layout align-center justify-start fill-height>
-        <v-card-actions>
-          <v-list-tile class="grow">
-            <v-list-tile-avatar color="grey darken-3">
-              <v-img class="elevation-6" src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"></v-img>
-            </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{chat.name}}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-card-actions>
+            </v-layout>
 
-            <v-list-tile-content>
-              <v-list-tile-title>User {{getUser.displayName}}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-card-actions>
-      </v-layout>
+            <!-- display other user message  -->
+            <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
+          </div>
 
-      <!-- chat history -->
-      <form>
-        <p v-if="chats.length == 0">No messages yet!</p>
-        <ul class="messages">
-          <li v-for="(chat, index) in chats" :key="index">
-            <p
-              v-if="chat.name === getUser.displayName"
-              class="text-xs-right"
-            >{{chat.msg}} : {{chat.name}}</p>
-            <p v-else class="text-xs-left">{{chat.name}}: {{chat.msg}}</p>
-          </li>
-        </ul>
-      </form>
+          <div v-else>
+            <!-- display user local name -->
+            <v-layout align-center justify-end>
+              <p class="text-xs-right">{{chat.msg}}</p>
+              <v-card-actions>
+                <v-list-tile class="grow">
+                  <v-list-tile-avatar color="grey darken-3">
+                    <v-img
+                      class="elevation-6"
+                      src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
+                    ></v-img>
+                  </v-list-tile-avatar>
 
-      <!-- display user local name -->
-      <v-layout align-center justify-end>
-        <v-card-actions>
-          <v-list-tile class="grow">
-            <v-list-tile-avatar color="grey darken-3">
-              <v-img class="elevation-6" src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"></v-img>
-            </v-list-tile-avatar>
-
-            <v-list-tile-content>
-              <v-list-tile-title>Me</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-card-actions>
-      </v-layout>
+                  <!-- display local user message  -->
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-card-actions>
+            </v-layout>
+          </div>
+        </div>
+      </div>
 
       <!-- new chats -->
       <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
@@ -77,6 +85,7 @@
 import firebase from "firebase";
 
 export default {
+  props: ["id"],
   data() {
     return {
       inputText: "",
@@ -90,13 +99,16 @@ export default {
       // load posts from firebase
       let that = this;
       that.loading = true;
+      this.chats = [];
       firebase
         .database()
         .ref("chats")
+        .child(that.id)
         .on("value", data => {
-          console.log(data.val());
           // obj with property-value pairs ==>
           const obj = data.val();
+          console.log(obj);
+
           that.chats = [];
           for (let key in obj) {
             that.chats.push({
@@ -110,37 +122,60 @@ export default {
     writeNewPost() {
       // write new post into firebase
       let that = this;
-      firebase
-        .database()
-        // define node under which chats are supposed to be saved, with ref-method:
-        .ref("chats")
-        // writing data into db:
-        .push({
-          name: that.getUser.displayName,
-          msg: that.inputText
-        });
-      that.inputText = "";
+
+      console.log(that.getUser);
+      if (this.getUser) {
+        firebase
+          .database()
+          // define node under which chats are supposed to be saved, with ref-method:
+          .ref("chats")
+          .child(that.id)
+          // writing data into db:
+          .push({
+            name: that.getUser.displayName,
+            msg: that.inputText,
+            img: that.getUser.photoURL
+          });
+        that.inputText = "";
+        this.getPosts();
+      }
     }
   },
   computed: {
     getUser() {
+      console.log(this.$store.getters.user);
       return this.$store.getters.user;
+    },
+    refreshPosts() {
+      // load posts from firebase
+      let that = this;
+      that.loading = true;
+      // this.chats = [];
+      firebase
+        .database()
+        .ref("chats")
+        .child(that.id)
+        .on("value", data => {
+          // obj with property-value pairs ==>
+          const obj = data.val();
+          console.log(obj);
+
+          that.chats = [];
+          for (let key in obj) {
+            that.chats.push({
+              name: obj[key].name,
+              msg: obj[key].msg
+            });
+            that.loading = false;
+          }
+        });
+      return this.chats;
     }
   },
   created() {
     this.getPosts();
   }
 };
-
-// computed: {
-//   drinks() {
-//     let cocktail = this.$store.getters.getSingleCocktail(
-//       this.$route.params.idDrink
-//     );
-//     this.getIngredients(cocktail);
-//     return cocktail;
-//   }
-// }
 </script>
 
 

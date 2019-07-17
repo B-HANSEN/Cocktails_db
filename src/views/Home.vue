@@ -106,8 +106,6 @@ export default {
     return {
       search: "",
       selections: []
-      // function does not work as computed{} refers to selections and Multiselect refers to value
-      // but replacing selections with value and value with selections does not work
     };
   },
   components: { BackToTop, Multiselect },
@@ -118,7 +116,6 @@ export default {
     options() {
       return this.$store.getters.options; // return options object from store getters
     },
-    // ...mapActions(["getCocktails"]),
     filteredDrinks: function() {
       if (this.selections.length == 0) {
         return this.drinks.filter(
@@ -245,7 +242,6 @@ export default {
 
 .m-control-wrapper {
   margin: 0.8em 0 0.5em 0.5em;
-  /* width: 375px; */
 }
 
 .action {

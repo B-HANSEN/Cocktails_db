@@ -1,50 +1,57 @@
 <template>
-  <div class="team">
-    <v-layout justify-space-around>
-      <h1 class="subheading grey--text">All chats</h1>
-    </v-layout>
-
+  <div>
     <!-- loader while chats are loading -->
-    <v-flex class="loader">
-      <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
+    <v-flex class="loader" v-if="loading">
+      <v-progress-circular indeterminate class="primary--text" :size="70"></v-progress-circular>
     </v-flex>
 
     <!-- cards for each existing chat + button to create new chat -->
-    <v-container class="my-5" v-if="!loading">
+    <v-container>
+      <v-layout justify-space-around>
+        <h1 class="heading grey--text">All chats</h1>
+      </v-layout>
+
+      <v-layout align-center column>
+        <div class="pt-3">You would like to start a new chat:</div>
+        <v-btn @click="createNewChat">Create chat</v-btn>
+      </v-layout>
+
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 lg3 v-for="(chat, index) in chats" :key="index">
+        <v-flex v-for="(chat, index) in chats" :key="index" xs6>
           <!-- existing chats -->
-          <v-card flat class="text-xs-center ma-3">
-            <v-responsive class="pt-4">
-              <v-avatar size="100" class="grey lighten-2">
-                <img :src="profile.url" />
-              </v-avatar>
-            </v-responsive>
-            <v-card-text>
-              <div class="subheading">{{ chat.name }}</div>
-              <div class="grey--text">{{ chat.chatTitle }}</div>
-            </v-card-text>
+          <v-card flat class="text-xs-center ma-3" color="#26c6da" dark>
+            <v-layout align-center column>
+              <v-responsive class="pt-4"></v-responsive>
+              <v-card-text>
+                <div class="subheading">{{ chat }}</div>
+              </v-card-text>
 
-            <!-- button to add post to existing chat -->
-            <router-link :to="'chatroom/' + chat.id">
-              <v-btn @click="createNewChat">Go to chat</v-btn>
-            </router-link>
-          </v-card>
-
-          <!-- button to add post to new chat -->
-          <v-card>
-            <router-link :to="'chatroom/' + chat.key">
-              <v-btn @click="createNewChat">Create new chat</v-btn>
-            </router-link>
+              <!-- button to add post to existing chat -->
+              <router-link :to="'chatroom/' + chat">
+                <v-layout align-center>
+                  <v-card-actions>
+                    <v-btn flat color="black">Go to chat</v-btn>
+                  </v-card-actions>
+                </v-layout>
+              </router-link>
+            </v-layout>
           </v-card>
         </v-flex>
       </v-layout>
     </v-container>
+
+    <!-- button to top -->
+    <back-to-top bottom="5px" right="10px" visibleoffset="20px">
+      <button type="button" class="btn btn-info btn-to-top">
+        <i class="fas fa-angle-double-up"></i>
+      </button>
+    </back-to-top>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
+import BackToTop from "vue-backtotop";
 
 export default {
   data() {
@@ -52,48 +59,38 @@ export default {
       loading: false,
       chatTitle: "",
       chats: []
-      //   key: ""
     };
   },
+  components: { BackToTop },
   methods: {
+    // load chats from firebase:
     getAllChats() {
-      // load chats from firebase
       let that = this;
-      that.loading = true;
-      that.chats = [];
       firebase
         .database()
-        .ref()
-        .child("chatTitle")
+        .ref("chats")
         .on("value", data => {
           const obj = data.val();
+          console.log(obj);
 
           for (let key in obj) {
-            that.chats.push({
-              chatTitle: obj[key].chatTitle,
-              name: obj[key].name
-            });
-            that.loading = false;
+            that.chats.push(key);
           }
         });
+    },
+    // create new chat:
+    createNewChat() {
+      this.chatTitle = prompt("Please enter a chat title:");
+      this.$router.push("/chatroom/" + this.chatTitle);
     }
-    // ,
-    // createNewChat() {
-    //   // create new chat
-    //   let chatTitle = prompt("Please enter a chat title:");
-    //   let that = this;
-    //   firebase
-    //     .database()
-    //     .ref()
-    //     .child("chatTitle")
-    //     .push({
-    //       chatTitle: that.chatTitle,
-    //       name: that.getUser.displayName
-    //     });
-    // }
   },
   created() {
     this.getAllChats();
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.user;
+    }
   }
 };
 </script>
@@ -110,5 +107,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn-to-top {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 30px;
+  line-height: 22px;
+  color: white;
+  background-color: #546e7a;
 }
 </style>

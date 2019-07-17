@@ -66,18 +66,7 @@
                   </v-flex>
                 </v-layout>
 
-                <!-- create profile pic -->
-                <v-layout row>
-                  <v-flex xs12>
-                    <v-text-field
-                      name="photoURL"
-                      label="Profile Pic"
-                      id="photoURL"
-                      v-model="photoURL"
-                      type="url"
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
+                <!-- sign-up button -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-btn type="submit">Sign-up</v-btn>

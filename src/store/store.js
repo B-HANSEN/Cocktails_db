@@ -84,7 +84,6 @@ export const store = new Vuex.Store({
             state.errors = payload
         },
         setUser(state, payload) {
-            console.log(payload);
             state.user = payload
         }
     },
@@ -108,12 +107,11 @@ export const store = new Vuex.Store({
         }, payload) {
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
                 .then(
-
                     user => {
-                        // let current = firebase.auth().currentUser;
-
+                        alert("Your account has been created.")
                         user.user.updateProfile({
-                            displayName: payload.userName
+                            displayName: payload.userName,
+                            photoURL: "https:\/\/randomuser.me\/api\/portraits\/women\/26.jpg"
                         }).then(function () {
                             // Update successful.
                             console.log(user.user);
@@ -121,7 +119,8 @@ export const store = new Vuex.Store({
                             const newUser = {
                                 id: user.user.uid,
                                 email: user.user.email,
-                                name: user.user.displayName
+                                name: user.user.displayName,
+                                image: user.user.photoURL
                             }
                             commit('setUser', newUser)
                         });
@@ -138,6 +137,7 @@ export const store = new Vuex.Store({
                 .then(
                     user => {
                         console.log(user.user);
+                        console.log(user.user.uid);
                         const newUser = {
                             // Firebase has changed the return object, you should pass in user.user now
                             // this.$store.commit('setCurrentUser', user.user) instead of 
@@ -155,7 +155,8 @@ export const store = new Vuex.Store({
         logout() {
             firebase.auth().signOut()
                 .then(() => {
-                    this.$router.replace('/')
+                    // this.$router.push('/')
+                    alert("You have been logged out successfully.")
                 })
                 .catch((err) => {
                     console.log(err)
