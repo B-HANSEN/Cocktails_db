@@ -16,7 +16,7 @@
         <v-btn @click="createNewChat">Create chat</v-btn>
       </v-layout>
 
-      <v-layout row wrap>
+      <v-layout row wrap v-if="!loading">
         <v-flex v-for="(chat, index) in chats" :key="index" xs6>
           <!-- existing chats -->
           <v-card flat class="text-xs-center ma-3" color="#26c6da" dark>
@@ -66,6 +66,7 @@ export default {
     // load chats from firebase:
     getAllChats() {
       let that = this;
+      that.loading = true;
       firebase
         .database()
         .ref("chats")
@@ -76,6 +77,7 @@ export default {
           for (let key in obj) {
             that.chats.push(key);
           }
+          that.loading = false;
         });
     },
     // create new chat:
@@ -85,7 +87,9 @@ export default {
     }
   },
   created() {
+    // this.loading = true;
     this.getAllChats();
+    // this.loading = false;
   },
   computed: {
     getUser() {
