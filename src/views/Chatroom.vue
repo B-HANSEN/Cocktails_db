@@ -17,65 +17,66 @@
       </v-layout>
 
       <!-- parent div with fixed height -->
-      <div id="scrollDiv">
-        <div class="scrollTop">
-          <!-- child div with overflow -->
-          <div class="scrollHeight">
-            <!-- chat history: -->
-            <div v-if="chats.length == 0">
-              <p class="pb-3">No messages yet!</p>
+      <!-- <div id="scrollDiv"> -->
+      <!-- <div class="scrollTop"> -->
+      <!-- child div with overflow -->
+      <!-- <div class="scrollHeight"> -->
+      <div id="chat">
+        <!-- chat history: -->
+        <div v-if="chats.length == 0">
+          <p class="pb-3">No messages yet!</p>
+        </div>
+        <div v-else>
+          <div v-for="(chat, index) in refreshPosts" :key="index">
+            <div v-if="getUser && chat.name !== getUser.displayName">
+              <!-- display other user names -->
+              <v-layout align-center justify-start fill-height>
+                <v-card-actions>
+                  <v-list-tile class="grow">
+                    <v-list-tile-avatar color="grey darken-3">
+                      <v-img
+                        class="elevation-6"
+                        src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
+                      ></v-img>
+                    </v-list-tile-avatar>
+
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{chat.name}}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-card-actions>
+              </v-layout>
+
+              <!-- display other user message  -->
+              <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
             </div>
+
             <div v-else>
-              <div v-for="(chat, index) in refreshPosts" :key="index">
-                <div v-if="getUser && chat.name !== getUser.displayName">
-                  <!-- display other user names -->
-                  <v-layout align-center justify-start fill-height>
-                    <v-card-actions>
-                      <v-list-tile class="grow">
-                        <v-list-tile-avatar color="grey darken-3">
-                          <v-img
-                            class="elevation-6"
-                            src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
-                          ></v-img>
-                        </v-list-tile-avatar>
+              <!-- display user local name -->
+              <v-layout align-center justify-end>
+                <p class="text-xs-right">{{chat.msg}}</p>
+                <v-card-actions>
+                  <v-list-tile class="grow">
+                    <v-list-tile-avatar color="grey darken-3">
+                      <v-img
+                        class="elevation-6"
+                        src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
+                      ></v-img>
+                    </v-list-tile-avatar>
 
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{chat.name}}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-card-actions>
-                  </v-layout>
-
-                  <!-- display other user message  -->
-                  <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
-                </div>
-
-                <div v-else>
-                  <!-- display user local name -->
-                  <v-layout align-center justify-end>
-                    <p class="text-xs-right">{{chat.msg}}</p>
-                    <v-card-actions>
-                      <v-list-tile class="grow">
-                        <v-list-tile-avatar color="grey darken-3">
-                          <v-img
-                            class="elevation-6"
-                            src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
-                          ></v-img>
-                        </v-list-tile-avatar>
-
-                        <!-- display local user message  -->
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-card-actions>
-                  </v-layout>
-                </div>
-              </div>
+                    <!-- display local user message  -->
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-card-actions>
+              </v-layout>
             </div>
           </div>
         </div>
       </div>
+      <!-- </div> -->
+      <!-- </div> -->
     </v-card>
 
     <!-- new chats: -->
@@ -104,7 +105,9 @@ export default {
       inputText: "",
       chats: [],
       loading: false,
-      chatTitle: ""
+      chatTitle: "",
+      scrollTop: true,
+      scrollHeight: true
     };
   },
   methods: {
@@ -131,6 +134,20 @@ export default {
             that.loading = false;
           }
         });
+      let container = document.getElementById("chat");
+      if (that.firstTime) {
+        setTimeout(() => {
+          container.scrollTop = container.scrollHeight;
+          that.firstTime = false;
+        }, 0);
+      } else {
+        setTimeout(() => {
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: "smooth"
+          });
+        }, 200);
+      }
     },
     writeNewPost() {
       // write new post into firebase
@@ -155,14 +172,13 @@ export default {
     }
   },
   // create function to set scrollTop equal to scrollHeight
-  scrollDown() {
-    // var x = document.getElementsByClassName("scrollTop");
-    // var y = document.getElementsByClassName("scrollHeight");
-    // x = y;
+  // scrollDown() {
+  // var x = document.getElementsByClassName("scrollTop");
+  // var y = document.getElementsByClassName("scrollHeight");
+  // x = y;
 
-    var element = document.getElementById("scrollDiv");
-    element.scrollTop = element.scrollHeight;
-  },
+  // var element = document.getElementById("scrollDiv");
+  // element.scrollTop = element.scrollHeight;
   computed: {
     getUser() {
       console.log(this.$store.getters.user);
@@ -196,7 +212,7 @@ export default {
   },
   created() {
     this.getPosts();
-    this.scrollDown();
+    // this.scrollDown();
   }
 };
 </script>
