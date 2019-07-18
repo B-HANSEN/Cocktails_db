@@ -132,19 +132,12 @@ export default {
         });
       // scroll to bottom functionality
       let container = document.getElementById("chat");
-      if (that.firstTime) {
-        setTimeout(() => {
-          container.scrollTop = container.scrollHeight;
-          that.firstTime = false;
-        }, 0);
-      } else {
-        setTimeout(() => {
-          container.scrollTo({
-            top: container.scrollHeight,
-            behavior: "smooth"
-          });
-        }, 200);
-      }
+      setTimeout(() => {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth"
+        });
+      }, 200);
       that.loading = false;
     },
     writeNewPost() {
@@ -167,6 +160,12 @@ export default {
         that.inputText = "";
         this.getPosts();
       }
+    }
+  },
+  updated() {
+    let container = document.getElementById("chat");
+    if (this.chats && container.scrollTop == 0) {
+      container.scrollTop = container.scrollHeight;
     }
   },
   computed: {
@@ -200,7 +199,7 @@ export default {
       return this.chats;
     }
   },
-  created() {
+  mounted() {
     this.getPosts();
   }
 };
@@ -237,9 +236,5 @@ p {
 #chat {
   height: 500px;
   overflow: auto;
-}
-
-#chat_child {
-  height: 100%;
 }
 </style>

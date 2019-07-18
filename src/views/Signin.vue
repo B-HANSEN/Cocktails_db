@@ -37,11 +37,9 @@
                 </v-layout>
 
                 <v-btn type="submit">Sign-in</v-btn>
-                <!-- <v-btn type="submit" @submit.prevent="logout">Logout</v-btn> -->
                 <v-btn @click="logout">Logout</v-btn>
               </form>
             </v-container>
-            <!-- <button @click="logout">Out</button> -->
           </v-card-text>
         </v-card>
       </v-flex>
@@ -62,17 +60,6 @@ export default {
       return this.$store.getters.user;
     }
   },
-  // watch: {
-  //   // watch user computed property; receive as value whenever it changes; have router to redirect to home after successful signup
-  //   user(value) {
-  //     if (value !== null && value !== undefined) {
-  //       this.$router.push("/");
-  //     }
-  //   }
-  // },
-
-  //  this.chatTitle = prompt("Please enter a chat title:");
-
   methods: {
     onSignin() {
       this.$store.dispatch("signUserIn", {
@@ -85,6 +72,17 @@ export default {
         email: this.email
       });
     }
+    //     ,
+    //     var user = firebase.auth().currentUser;
+
+    // user.updateProfile({
+    //   displayName: "Jane Q. User",
+    //   photoURL: "https://example.com/jane-q-user/profile.jpg"
+    // }).then(function() {
+    //   // Update successful.
+    // }).catch(function(error) {
+    //   // An error happened.
+    // });
   }
 };
 </script>

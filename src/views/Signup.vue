@@ -104,15 +104,6 @@ export default {
       return this.$store.getters.user;
     }
   },
-  // ,
-  // watch: {
-  //   // watch user computed property; receive as value whenever it changes; have router to redirect to home after successful signup
-  //   user(value) {
-  //     if (value !== null && value !== undefined) {
-  //       this.$router.push("/");
-  //     }
-  //   }
-  // }
   methods: {
     onSignup() {
       this.$store.dispatch("signUserUp", {
