@@ -3,11 +3,11 @@
     <h2 class="pa-2">CHATROOM</h2>
 
     <!-- loader while chats are loading -->
-    <v-flex class="loader" v-if="loading">
+    <!-- <v-flex class="loader" v-if="loading">
       <v-progress-circular indeterminate class="primary--text" :size="70"></v-progress-circular>
-    </v-flex>
+    </v-flex>-->
 
-    <div v-if="!loading">
+    <div>
       <v-card class="mx-auto" color="#26c6da" dark style="width: 95%">
         <!-- chat title -->
         <v-layout justify-center>
@@ -19,11 +19,11 @@
         <div id="chat">
           <div id="chat_child">
             <!-- chat history: -->
-            <div v-if="chats.length == 0">
+            <!-- <div v-if="chats.length == 0">
               <p class="pl-3 pb-3">No messages yet!</p>
-            </div>
-
-            <div v-else>
+            </div>-->
+            <!-- <div v-else> -->
+            <div>
               <!-- load other users and their posts -->
               <div v-for="(chat, index) in refreshPosts" :key="index">
                 <div v-if="getUser && chat.name !== getUser.displayName">
@@ -71,17 +71,17 @@
               </div>
             </div>
             <!-- button to top +++ TODO: how to refer to #chat_child??? -->
-            <back-to-top bottom="5px" right="10px" visibleoffset="0px">
+            <!-- <back-to-top bottom="5px" right="10px" visibleoffset="0px">
               <button type="button" class="btn btn-info btn-to-top">
                 <i class="fas fa-angle-double-up"></i>
               </button>
-            </back-to-top>
+            </back-to-top>-->
           </div>
         </div>
       </v-card>
 
       <!-- new chat input field and post button: -->
-      <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
+      <form @submit.prevent="writeNewPost" style="padding-bottom:10px">
         <v-layout pa-3>
           <input
             class="input"
@@ -101,7 +101,7 @@
 
 <script>
 import firebase from "firebase";
-import BackToTop from "vue-backtotop";
+// import BackToTop from "vue-backtotop";
 
 export default {
   props: ["id"],
@@ -109,18 +109,18 @@ export default {
     return {
       inputText: "",
       chats: [],
-      loading: false,
+      // loading: false,
       chatTitle: "",
       scrollTop: true,
       scrollHeight: true
     };
   },
-  components: { BackToTop },
+  // components: { BackToTop },
   methods: {
     getPosts() {
       // load posts from firebase
       let that = this;
-      that.loading = true;
+      // that.loading = true;
       that.chats = [];
       firebase
         .database()
@@ -137,7 +137,7 @@ export default {
               name: obj[key].name,
               msg: obj[key].msg
             });
-            that.loading = false;
+            // that.loading = false;
           }
         });
       // scroll to bottom functionality
@@ -153,7 +153,7 @@ export default {
     writeNewPost() {
       // write new post into firebase
       let that = this;
-      that.loading = true;
+      // that.loading = true;
       console.log(that.getUser);
       if (this.getUser) {
         firebase
@@ -169,7 +169,7 @@ export default {
           });
         that.inputText = "";
         this.getPosts();
-        that.loading = false;
+        // that.loading = false;
       }
     }
   },
@@ -187,7 +187,7 @@ export default {
     refreshPosts() {
       // load posts from firebase
       let that = this;
-      that.loading = true;
+      // that.loading = true;
       firebase
         .database()
         .ref("chats")
@@ -203,7 +203,7 @@ export default {
               name: obj[key].name,
               msg: obj[key].msg
             });
-            that.loading = false;
+            // that.loading = false;
           }
         });
       return this.chats;
