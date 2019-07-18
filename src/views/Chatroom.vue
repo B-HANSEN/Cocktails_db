@@ -3,91 +3,93 @@
     <h2 class="pa-2">CHATROOM</h2>
 
     <!-- loader while chats are loading -->
-    <!-- <v-flex class="loader">
+    <v-flex class="loader">
       <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
-    </v-flex>-->
+    </v-flex>
 
-    <!-- chat title -->
-    <v-card class="mx-auto" color="#26c6da" dark style="width: 95%">
-      <!-- chat title -->
-      <v-layout justify-center>
-        <v-card-title>
-          <span class="title font-weight-bold">{{ id }}</span>
-        </v-card-title>
-      </v-layout>
+    <div v-if="!loading">
+      <v-card class="mx-auto" color="#26c6da" dark style="width: 95%">
+        <!-- chat title -->
+        <v-layout justify-center>
+          <v-card-title>
+            <span class="title font-weight-bold">{{ id }}</span>
+          </v-card-title>
+        </v-layout>
 
-      <div id="chat">
-        <div id="chat_child">
-          <!-- chat history: -->
-          <div v-if="chats.length == 0">
-            <p class="pb-3">No messages yet!</p>
-          </div>
+        <div id="chat">
+          <div id="chat_child">
+            <!-- chat history: -->
+            <div v-if="chats.length == 0">
+              <p class="pl-3 pb-3">No messages yet!</p>
+            </div>
 
-          <div v-else>
-            <div v-for="(chat, index) in refreshPosts" :key="index">
-              <div v-if="getUser && chat.name !== getUser.displayName">
-                <!-- display other user names -->
-                <v-layout align-center justify-start fill-height>
-                  <v-card-actions>
-                    <v-list-tile class="grow">
-                      <v-list-tile-avatar color="grey darken-3">
-                        <v-img
-                          class="elevation-6"
-                          src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
-                        ></v-img>
-                      </v-list-tile-avatar>
+            <div v-else>
+              <!-- load other users and their posts -->
+              <div v-for="(chat, index) in refreshPosts" :key="index">
+                <div v-if="getUser && chat.name !== getUser.displayName">
+                  <!-- display other user names -->
+                  <v-layout align-center justify-start fill-height>
+                    <v-card-actions>
+                      <v-list-tile class="grow">
+                        <v-list-tile-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
+                          ></v-img>
+                        </v-list-tile-avatar>
 
-                      <v-list-tile-content>
-                        <v-list-tile-title>{{chat.name}}</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                  </v-card-actions>
-                </v-layout>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{chat.name}}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-card-actions>
+                  </v-layout>
 
-                <!-- display other user message  -->
-                <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
-              </div>
+                  <!-- display other user message  -->
+                  <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
+                </div>
 
-              <div v-else>
                 <!-- display user local name -->
-                <v-layout align-center justify-end>
-                  <v-card-actions>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile class="grow">
-                      <v-list-tile-avatar color="grey darken-3">
-                        <v-img
-                          class="elevation-6"
-                          src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
-                        ></v-img>
-                      </v-list-tile-avatar>
-                    </v-list-tile>
-                  </v-card-actions>
-                </v-layout>
-                <p class="text-xs-right pr-3 pb-3">{{chat.msg}}</p>
+                <div v-else>
+                  <v-layout align-center justify-end>
+                    <v-card-actions>
+                      <v-list-tile-content>
+                        <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
+                      </v-list-tile-content>
+                      <v-list-tile class="grow">
+                        <v-list-tile-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
+                          ></v-img>
+                        </v-list-tile-avatar>
+                      </v-list-tile>
+                    </v-card-actions>
+                  </v-layout>
+                  <p class="text-xs-right pr-3 pb-3">{{chat.msg}}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </v-card>
+      </v-card>
 
-    <!-- new chats:  TODO: revise button to show ICON -->
-    <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
-      <v-layout pa-3>
-        <input
-          class="input"
-          type="text"
-          name="chat"
-          v-model="inputText"
-          placeholder="Please input chat text here..."
-        />
-        <v-btn right small flat color="#26c6da" @click="writeNewPost" style="width:20px">
-          <i class="material-icons">send</i>
-        </v-btn>
-      </v-layout>
-    </form>
+      <!-- new chat input field and post button: -->
+      <form @submit.prevent="writeNewPost" style="padding-bottom:10px; margin-bottom:30px">
+        <v-layout pa-3>
+          <input
+            class="input"
+            type="text"
+            name="chat"
+            v-model="inputText"
+            placeholder="Please input chat text here..."
+          />
+          <v-btn left small flat color="#26c6da" @click="writeNewPost" style="width:20px">
+            <i class="material-icons">send</i>
+          </v-btn>
+        </v-layout>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -127,7 +129,7 @@ export default {
               name: obj[key].name,
               msg: obj[key].msg
             });
-            // that.loading = false;
+            that.loading = false;
           }
         });
       // scroll to bottom functionality
@@ -138,12 +140,12 @@ export default {
           behavior: "smooth"
         });
       }, 200);
-      that.loading = false;
+      // that.loading = false;
     },
     writeNewPost() {
       // write new post into firebase
       let that = this;
-
+      that.loading = true;
       console.log(that.getUser);
       if (this.getUser) {
         firebase
@@ -159,6 +161,7 @@ export default {
           });
         that.inputText = "";
         this.getPosts();
+        that.loading = false;
       }
     }
   },
@@ -177,7 +180,6 @@ export default {
       // load posts from firebase
       let that = this;
       that.loading = true;
-      // this.chats = [];
       firebase
         .database()
         .ref("chats")

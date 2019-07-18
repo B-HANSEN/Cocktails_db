@@ -91,6 +91,9 @@ export default {
     this.getAllChats();
     // this.loading = false;
   },
+  //   updated() {
+  //     this.getAllChats();
+  //   },
   computed: {
     getUser() {
       return this.$store.getters.user;
