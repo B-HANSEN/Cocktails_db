@@ -3,8 +3,8 @@
     <h2 class="pa-2">CHATROOM</h2>
 
     <!-- loader while chats are loading -->
-    <v-flex class="loader">
-      <v-progress-circular indeterminate class="primary--text" :size="70" v-if="loading"></v-progress-circular>
+    <v-flex class="loader" v-if="loading">
+      <v-progress-circular indeterminate class="primary--text" :size="70"></v-progress-circular>
     </v-flex>
 
     <div v-if="!loading">
@@ -70,6 +70,12 @@
                 </div>
               </div>
             </div>
+            <!-- button to top +++ TODO: how to refer to #chat_child??? -->
+            <back-to-top bottom="5px" right="10px" visibleoffset="0px">
+              <button type="button" class="btn btn-info btn-to-top">
+                <i class="fas fa-angle-double-up"></i>
+              </button>
+            </back-to-top>
           </div>
         </div>
       </v-card>
@@ -95,6 +101,7 @@
 
 <script>
 import firebase from "firebase";
+import BackToTop from "vue-backtotop";
 
 export default {
   props: ["id"],
@@ -108,6 +115,7 @@ export default {
       scrollHeight: true
     };
   },
+  components: { BackToTop },
   methods: {
     getPosts() {
       // load posts from firebase
@@ -150,7 +158,7 @@ export default {
       if (this.getUser) {
         firebase
           .database()
-          // define node under which chats are supposed to be saved, with ref-method:
+          // define node under which chats are supposed to be saved, with ref-method. If not exist, it creates it:
           .ref("chats")
           .child(that.id)
           // writing data into db:
@@ -230,6 +238,7 @@ export default {
   color: black;
   width: 95%;
 }
+
 p {
   margin: 0px 5px 0px 0px;
   padding: 0;

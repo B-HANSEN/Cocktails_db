@@ -74,9 +74,8 @@ export default {
           const obj = data.val();
           console.log(obj);
 
-          for (let key in obj) {
-            that.chats.push(key);
-          }
+          that.chats = Object.keys(obj);
+
           that.loading = false;
         });
     },
