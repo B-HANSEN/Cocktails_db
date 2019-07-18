@@ -8,7 +8,7 @@
     </v-flex>-->
 
     <!-- chat title -->
-    <v-card class="mx-auto" color="#26c6da" dark max-width="500">
+    <v-card class="mx-auto" color="#26c6da" dark style="width: 95%">
       <!-- chat title -->
       <v-layout justify-center>
         <v-card-title>
@@ -51,8 +51,10 @@
               <div v-else>
                 <!-- display user local name -->
                 <v-layout align-center justify-end>
-                  <p class="text-xs-right">{{chat.msg}}</p>
                   <v-card-actions>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
+                    </v-list-tile-content>
                     <v-list-tile class="grow">
                       <v-list-tile-avatar color="grey darken-3">
                         <v-img
@@ -60,14 +62,10 @@
                           src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
                         ></v-img>
                       </v-list-tile-avatar>
-
-                      <!-- display local user message  -->
-                      <v-list-tile-content>
-                        <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
-                      </v-list-tile-content>
                     </v-list-tile>
                   </v-card-actions>
                 </v-layout>
+                <p class="text-xs-right pr-3 pb-3">{{chat.msg}}</p>
               </div>
             </div>
           </div>
@@ -85,7 +83,7 @@
           v-model="inputText"
           placeholder="Please input chat text here..."
         />
-        <v-btn class="button1" small flat @click="writeNewPost" style="width:20px">
+        <v-btn right small flat color="#26c6da" @click="writeNewPost" style="width:20px">
           <i class="material-icons">send</i>
         </v-btn>
       </v-layout>
@@ -243,9 +241,5 @@ p {
 
 #chat_child {
   height: 100%;
-}
-
-.button1 {
-  width: 50px;
 }
 </style>
