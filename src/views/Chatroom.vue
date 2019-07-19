@@ -22,11 +22,11 @@
             <div>
               <v-container>
                 <div v-for="(chat, index) in refreshPosts" :key="index">
-                  <div v-if="getUser && chat.name !== getUser.displayName">
+                  <div v-if="getUser && chat.name == getUser.displayName">
                     <!-- display other user names -->
                     <v-layout>
                       <v-flex py-1>
-                        <span row wrap>{{chat.name}}: {{chat.msg}}</span>
+                        <span row wrap style="float:right">{{chat.name}}: {{chat.msg}}</span>
                       </v-flex>
                     </v-layout>
                   </div>
@@ -35,7 +35,7 @@
                   <div v-else>
                     <v-layout>
                       <v-flex py-1>
-                        <span style="float:right">{{chat.name}}: {{chat.msg}}</span>
+                        <span row-wrap>{{chat.name}}: {{chat.msg}}</span>
                       </v-flex>
                     </v-layout>
                   </div>

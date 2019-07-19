@@ -1,5 +1,36 @@
 <template>
   <div class="mainItems">
+    <div>
+      <v-flex xs12 px-3 pt-2>
+        <v-card>
+          <!-- <v-img src="./images/pic8.jpeg" height="150px"></v-img> -->
+          <v-img src="./images/pic8.jpeg" aspect-ratio="2"></v-img>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-1">The Cocktail database</h3>
+              <div>
+                <p>Welcome to our database listing a variety of classic and modern drinks.</p>
+                <p
+                  style="font-size:12px"
+                >This is a database which enables you to search for your favourite cocktails and see all required ingredients and the instructions how to mix them.</p>
+                <p
+                  style="font-size:12px"
+                  v-if="show"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ratione architecto debitis maxime reprehenderit? Eveniet, in architecto, rerum veniam sapiente eligendi deserunt temporibus quis fugit beatae id consectetur dolorum quos?</p>
+                <v-btn color="info" @click="toggleButton">{{ button.text }}</v-btn>
+              </div>
+            </div>
+          </v-card-title>
+
+          <v-card-actions>
+            <a class="contact" href="mailto:info@cocktails.org">
+              <v-btn flat color="orange">Contact us</v-btn>
+            </a>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </div>
+
     <div class="secondLevel">
       <v-layout wrap>
         <v-flex wrap="false" xs12 sm6 class="input-parent">
@@ -16,7 +47,7 @@
             <img src="../../public/images/magnifier.png" />
           </div>
           <!-- clear Filter button -->
-          <v-btn depressed class="btn" v-on:click="clearFilter">CLEAR</v-btn>
+          <v-btn depressed class="btn" @click="clearFilter">CLEAR</v-btn>
         </v-flex>
 
         <!-- drop-down filters -->
@@ -103,7 +134,11 @@ export default {
   data() {
     return {
       search: "",
-      selections: []
+      selections: [],
+      show: false,
+      button: {
+        text: "Show More"
+      }
     };
   },
   components: { BackToTop, Multiselect },
@@ -173,6 +208,10 @@ export default {
     clearFilter() {
       this.search = "";
       this.selections = [];
+    },
+    toggleButton() {
+      this.show = !this.show;
+      this.button.text = !this.show ? "Show more" : "Show less";
     }
   }
 };
@@ -188,6 +227,10 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px;
+}
+
+.contact {
+  text-decoration: none;
 }
 
 .input-parent {

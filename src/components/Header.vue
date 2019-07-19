@@ -46,7 +46,6 @@ export default {
       { icon: "input", name: "LOGIN/ OUT", to: "/login" },
       { icon: "face", name: "PROFILE", to: "/profile" },
       { icon: "question_answer", name: "ALL CHATS", to: "/chatrooms" }
-      // { icon: "question_answer", name: "CHATROOM", to: "/chatroom" }
     ],
     drawer: false
   }),
