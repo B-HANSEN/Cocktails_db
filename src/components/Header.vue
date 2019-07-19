@@ -42,10 +42,10 @@ export default {
   data: () => ({
     links: [
       { icon: "home", name: "HOME", to: "/" },
+      { icon: "panorama", name: "GALLERY", to: "/gallery" },
       { icon: "fingerprint", name: "SIGNUP", to: "/signup" },
       { icon: "input", name: "LOGIN/ OUT", to: "/login" },
-      { icon: "face", name: "PROFILE", to: "/profile" },
-      { icon: "face", name: "RANDOM COCKTAIL", to: "/random" },
+      // { icon: "face", name: "PROFILE", to: "/profile" },
       { icon: "question_answer", name: "ALL CHATS", to: "/chatrooms" }
     ],
     drawer: false

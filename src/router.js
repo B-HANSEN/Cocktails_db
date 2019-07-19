@@ -59,9 +59,9 @@ const router = new VueRouter({
       component: () => import('./views/Profile.vue')
     },
     {
-      path: '/random',
-      name: 'Random',
-      component: () => import('./views/randomCocktail.vue')
+      path: '/gallery',
+      name: 'gallery',
+      component: () => import('./views/Gallery.vue')
     }
   ]
 })
