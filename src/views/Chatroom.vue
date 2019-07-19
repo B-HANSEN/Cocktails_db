@@ -42,12 +42,6 @@
                 </div>
               </v-container>
             </div>
-            <!-- button to top +++ TODO: how to refer to #chat_child??? -->
-            <!-- <back-to-top bottom="5px" right="10px" visibleoffset="0px">
-              <button type="button" class="btn btn-info btn-to-top">
-                <i class="fas fa-angle-double-up"></i>
-              </button>
-            </back-to-top>-->
           </div>
         </div>
       </v-card>
@@ -73,7 +67,6 @@
 
 <script>
 import firebase from "firebase";
-// import BackToTop from "vue-backtotop";
 
 export default {
   props: ["id"],
@@ -87,7 +80,6 @@ export default {
       scrollHeight: true
     };
   },
-  // components: { BackToTop },
   methods: {
     getPosts() {
       // load posts from firebase

@@ -1,9 +1,9 @@
 <template>
   <div class="mainItems">
+    <!-- first section: img, text, contact us -->
     <div>
       <v-flex xs12 px-3 pt-2>
         <v-card>
-          <!-- <v-img src="./images/pic8.jpeg" height="150px"></v-img> -->
           <v-img src="./images/pic8.jpeg" aspect-ratio="2"></v-img>
           <v-card-title primary-title>
             <div>
@@ -31,6 +31,7 @@
       </v-flex>
     </div>
 
+    <!-- second section: search and filters -->
     <div class="secondLevel">
       <v-layout wrap>
         <v-flex wrap="false" xs12 sm6 class="input-parent">
@@ -72,7 +73,7 @@
       </v-layout>
     </div>
 
-    <!-- container with images and back-to-top-button -->
+    <!-- third section: images and back-to-top-button -->
     <div>
       <v-container>
         <!-- optional paragraph in case no output -->
@@ -129,7 +130,6 @@
 <script>
 import BackToTop from "vue-backtotop";
 import Multiselect from "vue-multiselect";
-
 export default {
   data() {
     return {
@@ -222,21 +222,17 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
 .secondLevel {
   display: flex;
   flex-direction: column;
   padding: 5px;
 }
-
 .contact {
   text-decoration: none;
 }
-
 .input-parent {
   display: flex;
 }
-
 .searchfield {
   border-top: thin solid #e5e5e5;
   border-right: thin solid #e5e5e5;
@@ -251,7 +247,6 @@ export default {
   background-color: white;
   flex-grow: 1;
 }
-
 .btn {
   border-top: thin solid #e5e5e5;
   border-right: thin solid #e5e5e5;
@@ -262,7 +257,6 @@ export default {
   margin: 0.8em 0 0em 0.5em;
   outline: 0;
 }
-
 #button-holder {
   background-color: #f1f1f1;
   border-top: thin solid #e5e5e5;
@@ -275,22 +269,18 @@ export default {
   width: 50px;
   background-color: white;
 }
-
 #button-holder img {
   margin: 4px;
   width: 30px;
 }
-
 .m-control-wrapper {
   margin: 0.8em 0 0.5em 0.5em;
 }
-
 .action {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .btn-to-top {
   width: 50px;
   height: 50px;
@@ -300,7 +290,6 @@ export default {
   color: white;
   background-color: #546e7a;
 }
-
 .card {
   height: 100%;
 }

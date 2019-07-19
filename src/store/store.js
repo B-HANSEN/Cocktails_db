@@ -111,7 +111,7 @@ export const store = new Vuex.Store({
                         alert("Your account has been created.")
                         user.user.updateProfile({
                             displayName: payload.userName,
-                            photoURL: "https:\/\/randomuser.me\/api\/portraits\/women\/26.jpg"
+                            // photoURL: "https:\/\/randomuser.me\/api\/portraits\/women\/26.jpg"
                         }).then(function () {
                             console.log(user.user);
 
