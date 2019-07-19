@@ -4,8 +4,7 @@
       <v-icon class="white--text">arrow_back</v-icon>
     </v-btn>
     <v-layout align-center>
-      <img class="logo" src="../assets/cocktail_logo4.png" alt="logo" />
-      <!-- <v-spacer></v-spacer> -->
+      <img class="logo" src="../assets/new_logo2.png" alt="logo" />
     </v-layout>
 
     <v-spacer></v-spacer>
@@ -19,7 +18,7 @@
 
       <v-list two-line>
         <v-layout justify-center class="bg">
-          <h2>NAVIGATION</h2>
+          <h3>NAVIGATION</h3>
         </v-layout>
         <v-divider></v-divider>
         <template v-for="(link, index) in links">
@@ -28,7 +27,7 @@
               <v-icon>{{ link.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{ link.name }}</v-list-tile-title>
+              <v-list-tile-title style="font-size:15px">{{ link.name }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider v-if="index + 1 < links.length" :key="`divider-${index}`"></v-divider>
@@ -44,7 +43,7 @@ export default {
     links: [
       { icon: "home", name: "HOME", to: "/" },
       { icon: "fingerprint", name: "SIGNUP", to: "/signup" },
-      { icon: "input", name: "LOGIN / LOGOUT", to: "/login" },
+      { icon: "input", name: "LOGIN/ OUT", to: "/login" },
       { icon: "face", name: "PROFILE", to: "/profile" },
       { icon: "question_answer", name: "ALL CHATS", to: "/chatrooms" }
       // { icon: "question_answer", name: "CHATROOM", to: "/chatroom" }

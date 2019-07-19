@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2 class="pa-2">CHATROOM</h2>
-
     <!-- loader while chats are loading -->
     <!-- <v-flex class="loader" v-if="loading">
       <v-progress-circular indeterminate class="primary--text" :size="70"></v-progress-circular>
@@ -15,60 +14,33 @@
             <span class="title font-weight-bold">{{ id }}</span>
           </v-card-title>
         </v-layout>
+        <v-divider class="mx-auto" width="95%" color="lightgreen"></v-divider>
 
         <div id="chat">
           <div id="chat_child">
             <!-- chat history: -->
-            <!-- <div v-if="chats.length == 0">
-              <p class="pl-3 pb-3">No messages yet!</p>
-            </div>-->
-            <!-- <div v-else> -->
             <div>
-              <!-- load other users and their posts -->
-              <div v-for="(chat, index) in refreshPosts" :key="index">
-                <div v-if="getUser && chat.name !== getUser.displayName">
-                  <!-- display other user names -->
-                  <v-layout align-center justify-start fill-height>
-                    <v-card-actions>
-                      <v-list-tile class="grow">
-                        <v-list-tile-avatar color="grey darken-3">
-                          <v-img
-                            class="elevation-6"
-                            src="https:\/\/randomuser.me\/api\/portraits\/men\/43.jpg"
-                          ></v-img>
-                        </v-list-tile-avatar>
+              <v-container>
+                <div v-for="(chat, index) in refreshPosts" :key="index">
+                  <div v-if="getUser && chat.name !== getUser.displayName">
+                    <!-- display other user names -->
+                    <v-layout>
+                      <v-flex py-1>
+                        <span row wrap>{{chat.name}}: {{chat.msg}}</span>
+                      </v-flex>
+                    </v-layout>
+                  </div>
 
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{chat.name}}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-card-actions>
-                  </v-layout>
-
-                  <!-- display other user message  -->
-                  <p class="text-xs-left pl-3 pb-3">{{chat.msg}}</p>
+                  <!-- display user local name -->
+                  <div v-else>
+                    <v-layout>
+                      <v-flex py-1>
+                        <span style="float:right">{{chat.name}}: {{chat.msg}}</span>
+                      </v-flex>
+                    </v-layout>
+                  </div>
                 </div>
-
-                <!-- display user local name -->
-                <div v-else>
-                  <v-layout align-center justify-end>
-                    <v-card-actions>
-                      <v-list-tile-content>
-                        <v-list-tile-title>{{chat.name}}{{chat.img}}</v-list-tile-title>
-                      </v-list-tile-content>
-                      <v-list-tile class="grow">
-                        <v-list-tile-avatar color="grey darken-3">
-                          <v-img
-                            class="elevation-6"
-                            src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"
-                          ></v-img>
-                        </v-list-tile-avatar>
-                      </v-list-tile>
-                    </v-card-actions>
-                  </v-layout>
-                  <p class="text-xs-right pr-3 pb-3">{{chat.msg}}</p>
-                </div>
-              </div>
+              </v-container>
             </div>
             <!-- button to top +++ TODO: how to refer to #chat_child??? -->
             <!-- <back-to-top bottom="5px" right="10px" visibleoffset="0px">
