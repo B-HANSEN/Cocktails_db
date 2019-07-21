@@ -7,7 +7,7 @@
     </div>
 
     <v-layout align-center justify-start row py-3>
-      <v-btn small v-on:click="reloadButton" color="#009688" fab>
+      <v-btn small v-on:click="reloadButton" color="blue-grey darken-1 white--text" fab>
         <v-icon>replay</v-icon>
       </v-btn>
       <h3 style="padding-left:30px">{{ cocktails.strDrink }}</h3>
