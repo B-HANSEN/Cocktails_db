@@ -42,7 +42,7 @@ export default {
   data: () => ({
     links: [
       { icon: "home", name: "HOME", to: "/" },
-      { icon: "panorama", name: "GALLERY", to: "/gallery" },
+      { icon: "panorama", name: "RANDOM DRINK", to: "/random" },
       { icon: "fingerprint", name: "SIGNUP", to: "/signup" },
       { icon: "input", name: "LOGIN/ OUT", to: "/login" },
       // { icon: "face", name: "PROFILE", to: "/profile" },
