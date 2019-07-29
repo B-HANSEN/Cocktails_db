@@ -3,7 +3,7 @@
     <h2 class="py-2">Random Cocktail of the day!</h2>
     <div>
       Here you can see a variety of different cocktails. Click on the button to a random drink.
-      <br />If you cannot find the recipe on our homepage, please let us know and we will add it to the database.
+      <br />If you cannot find the recipe on our homepage, please let us know and we will immediately add it to the database.
     </div>
 
     <v-layout align-center justify-start row py-3>
